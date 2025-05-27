@@ -5,8 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обратная связь</title>
     <link rel="stylesheet" href="/static/obrsvaz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="logo"><a href="{{ url_for('main') }}" method="POST">ПромТехСервис</a></div>
+            <div class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('main') }}" method="POST">Главная</a></li>
+                <li><a href="{{ url_for('price') }}" method="POST">Цены</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="container">
         <h1>Обратная связь</h1>
         <form id="feedbackForm">
@@ -20,10 +37,10 @@
             <div class="form-group">
                 <label for="telephone">Ваш номер телефона:</label>
                 <input type="tel" id="telephone" name="telephone" 
-                       placeholder="+7XXXXXXXXXX или 8XXXXXXXXXX" 
+                       placeholder="+7XXXXXXXXXX" 
                        pattern="^(\+7|8)\d{10}$" 
                        required>
-                <small>Формат: +7 или 8 и 10 цифр</small>
+                <small>Формат: +7 и 10 цифр</small>
             </div>
             
             <div class="form-group">
@@ -47,6 +64,24 @@
             <button type="submit" class="submit-btn">Отправить</button>
         </form>
     </div>
+
+    <div class="page-navigation">
+        <a href="{{ url_for('price') }}" class="nav-button prev">
+            <i class="fas fa-arrow-left"></i> К списку услуг
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info" id="contact">
+                <h4>Контакты</h4>
+                <p><i class="fas fa-phone"></i>Телефон: +7 ............</p>
+                <p><i class="fas fa-envelope"></i>Почта: </p>
+                <p><i class="fas fa-map-marker-alt"></i>Адрес: Ярославль</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="/static/obrsvaz.js"></script>
 </body>
 </html>

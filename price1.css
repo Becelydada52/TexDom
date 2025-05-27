@@ -1,3 +1,4 @@
+/* Общие стили */
 * {
     margin: 0;
     padding: 0;
@@ -5,27 +6,25 @@
     border-radius: 10px;
 }
 
-/* Стили для выделения текста */
-::selection {
-    background-color: #3498db;
-    color: white;
-    text-shadow: none;
-}
-
-::-moz-selection {
-    background-color: #3498db;
-    color: white;
-    text-shadow: none;
-}
-
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
     line-height: 1.6;
+    color: #333;
     animation: pageTransition 0.6s ease-out;
 }
 
-/* Навигация */
+@keyframes pageTransition {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -131,111 +130,135 @@ nav {
 }
 
 /* Основной контент */
-.container {
-    max-width: 600px;
+.service-details {
+    max-width: 1200px;
     margin: 100px auto 50px;
     padding: 2rem;
-    background-color: white;
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease-out;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
-h1 {
+.service-details h1 {
     text-align: center;
-    color: #333;
-    margin-bottom: 2rem;
-    animation: slideInFromTop 0.6s ease-out;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
-    animation: fadeInUp 0.6s ease-out forwards;
-    opacity: 0;
-}
-
-.form-group:nth-child(1) { animation-delay: 0.2s; }
-.form-group:nth-child(2) { animation-delay: 0.3s; }
-.form-group:nth-child(3) { animation-delay: 0.4s; }
-.form-group:nth-child(4) { animation-delay: 0.5s; }
-.form-group:nth-child(5) { animation-delay: 0.6s; }
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #555;
+.price-tag {
+    text-align: center;
+    font-size: 2rem;
+    color: #3498db;
     font-weight: bold;
+    margin-bottom: 2rem;
 }
 
-input,
-textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+.service-description {
+    margin-bottom: 3rem;
 }
 
-input:focus,
-textarea:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+.service-description h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
 }
 
-.submit-btn {
-    display: block;
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, #3498db, #2980b9);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    animation: fadeInUp 0.6s ease-out 0.7s forwards;
-    opacity: 0;
-}
-
-.submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-}
-
-/* Навигация между страницами */
-.page-navigation {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-    animation: fadeIn 0.8s ease-out;
-}
-
-.nav-button {
-    display: inline-flex;
-    align-items: center;
-    padding: 12px 24px;
-    background: linear-gradient(145deg, #3498db, #2980b9);
-    color: white;
-    text-decoration: none;
-    border-radius: 30px;
-    transition: all 0.4s ease;
-    font-weight: 500;
-}
-
-.nav-button:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.5);
-}
-
-.nav-button i {
-    margin-right: 8px;
+.service-item {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
     transition: transform 0.3s ease;
 }
 
-.nav-button:hover i {
-    transform: translateX(-5px);
+.service-item:hover {
+    transform: translateY(-5px);
+}
+
+.service-item h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.service-item i {
+    color: #3498db;
+    margin-right: 0.5rem;
+}
+
+.service-item p {
+    color: #666;
+    line-height: 1.8;
+}
+
+.benefits {
+    margin-bottom: 3rem;
+}
+
+.benefits h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.benefits ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.benefits li {
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.benefits li:before {
+    content: "✓";
+    color: #3498db;
+    position: absolute;
+    left: 0;
+}
+
+/* Кнопки */
+.cta-section {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #2980b9;
+}
+
+.page-navigation {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #34495e;
 }
 
 /* Подвал */
@@ -243,7 +266,6 @@ footer {
     background-color: #1a1a1a;
     color: white;
     padding: 3rem 5%;
-    margin-top: 3rem;
     animation: slideInFromBottom 0.8s ease-out;
 }
 
@@ -287,17 +309,6 @@ footer {
 }
 
 /* Анимации */
-@keyframes pageTransition {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -323,12 +334,14 @@ footer {
     }
 }
 
-@keyframes slideInFromBottom {
+@keyframes slideInFromRight {
     from {
-        transform: translateY(100%);
+        transform: translateX(100%);
+        opacity: 0;
     }
     to {
-        transform: translateY(0);
+        transform: translateX(0);
+        opacity: 1;
     }
 }
 
@@ -341,16 +354,15 @@ footer {
     }
 }
 
-@keyframes slideInFromRight {
+@keyframes slideInFromBottom {
     from {
-        transform: translateX(100%);
-        opacity: 0;
+        transform: translateY(100%);
     }
     to {
-        transform: translateX(0);
-        opacity: 1;
+        transform: translateY(0);
     }
 }
+
 
 @media (max-width: 768px) {
     .menu-btn {
@@ -386,26 +398,5 @@ footer {
 
     .hero p {
         font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        margin: 70px 0.5rem 0.5rem;
-        padding: 0.8rem;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    input,
-    textarea {
-        font-size: 0.9rem;
-    }
-
-    .submit-btn {
-        padding: 0.8rem;
-        font-size: 0.9rem;
     }
 }

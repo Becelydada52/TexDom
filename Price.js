@@ -61,8 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             // Затемнение страницы перед прокруткой
-            document.body.style.opacity = '0.5';
-            document.body.style.transition = 'opacity 0.3s ease';
+            document.body.style.transition = 'opacity 0.1s ease';
             
             setTimeout(() => {
                 const contactSection = document.querySelector('#contact');

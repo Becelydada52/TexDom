@@ -11,7 +11,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo">ПромТехСервис</div>
+            <div class="logo"><a href="{{ url_for('main') }}" method="POST">ПромТехСервис</a></div>
             <div class="menu-btn">
                 <span></span>
                 <span></span>
@@ -35,9 +35,7 @@
                     <li>Базовая диагностика</li>
                     <li>Техническая поддержка</li>
                 </ul>
-                <div class="price1">
-                <a href="{{ url_for('price1') }}" method="POST">Подробнее</a>
-                </div>
+                <a href="{{ url_for('price1') }}" class="price1" method="POST">Подробнее</a>
             </div>
             
             <div class="price-item">
@@ -49,9 +47,7 @@
                     <li>Оптимизация процессов</li>
                     <li>Ежемесячный отчет</li>
                 </ul>
-                <div class="price2">
-                <a href="{{ url_for('price2') }}" method="POST">Подробнее</a>
-                </div>
+                <a href="{{ url_for('price2') }}" class="price2" method="POST">Подробнее</a>
             </div>
             
             <div class="price-item">
@@ -63,15 +59,15 @@
                     <li>Индивидуальные решения</li>
                     <li>Ежеквартальный аудит</li>
                 </ul>
-                <div class="price3">
-                <a href="{{ url_for('price3') }}" method="POST">Подробнее</a>
+                <a href="{{ url_for('price3') }}" class="price3" method="POST">Подробнее</a>
+            </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="cta-section">
-        <a href="#contact" class="cta-button">Связаться с нами</a>
+        <a href="{{ url_for('obrsvaz') }}" class="cta-button" method="POST">Связаться с нами</a>
     </div>
 
     <div class="page-navigation">

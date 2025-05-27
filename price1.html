@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Базовый пакет - Подробное описание</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='price1.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="{{ url_for('main') }}" method="POST">ПромТехСервис</a></div>
+            <div class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('main') }}" method="POST">Главная</a></li>
+                <li><a href="{{ url_for('price') }}" method="POST">Цены</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="service-details">
+        <h1>Базовый пакет услуг</h1>
+        <div class="price-tag">5000 ₽</div>
+        
+        <div class="service-description">
+            <h2>Что входит в базовый пакет:</h2>
+            
+            <div class="service-item">
+                <h3><i class="fas fa-comments"></i> Консультация</h3>
+                <p>Профессиональная консультация по всем вопросам, связанным с вашим оборудованием и производственными процессами. Наши специалисты помогут разобраться в технических аспектах и предложат оптимальные решения.</p>
+            </div>
+
+            <div class="service-item">
+                <h3><i class="fas fa-search"></i> Базовая диагностика</h3>
+                <p>Комплексная проверка состояния оборудования, выявление потенциальных проблем и оценка эффективности работы. Включает визуальный осмотр, проверку основных параметров и составление отчета о состоянии.</p>
+            </div>
+
+            <div class="service-item">
+                <h3><i class="fas fa-headset"></i> Техническая поддержка</h3>
+                <p>Обеспечение технической поддержки в рабочее время. Наши специалисты готовы ответить на ваши вопросы и помочь в решении возникающих проблем с оборудованием.</p>
+            </div>
+        </div>
+
+        <div class="benefits">
+            <h2>Преимущества базового пакета:</h2>
+            <ul>
+                <li>Доступная стоимость</li>
+                <li>Быстрый старт сотрудничества</li>
+                <li>Профессиональная поддержка</li>
+                <li>Гибкие условия обслуживания</li>
+            </ul>
+        </div>
+
+        <div class="cta-section">
+            <a href="{{ url_for('obrsvaz') }}" class="cta-button" method="POST">Оставить заявку</a>
+        </div>
+    </div>
+
+    <div class="page-navigation">
+        <a href="{{ url_for('price') }}" class="nav-button prev">
+            <i class="fas fa-arrow-left"></i> К списку услуг
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info" id="contact">
+                <h4>Контакты</h4>
+                <p><i class="fas fa-phone"></i>Телефон: +7 ............</p>
+                <p><i class="fas fa-envelope"></i>Почта: </p>
+                <p><i class="fas fa-map-marker-alt"></i>Адрес: Ярославль</p>
+            </div>
+        </div>
+    </footer>
+    <script src="/static/price1.js"></script>
+</body>
+</html>
