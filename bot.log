@@ -1,0 +1,165 @@
+2025-11-05 21:11:05,483 [INFO] Starting aiogram polling...
+2025-11-05 21:11:05,781 [INFO] Polling started in background thread
+2025-11-05 21:11:05,782 [WARNING] Goodbye!
+2025-11-05 21:19:51,823 [INFO] Starting aiogram polling...
+2025-11-05 21:19:52,136 [INFO] Polling started in background thread
+2025-11-05 21:19:52,140 [WARNING] Goodbye!
+2025-11-05 21:21:13,725 [INFO] Starting aiogram polling...
+2025-11-05 21:21:14,022 [ERROR] Executor polling crashed
+Traceback (most recent call last):
+  File "c:\Users\panas\OneDrive\Documents\Родителям\bot.py", line 375, in _run_v2_executor
+    aiogram_executor.start_polling(dp, skip_updates=True)
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\utils\executor.py", line 45, in start_polling
+    executor.start_polling(
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\utils\executor.py", line 317, in start_polling
+    loop = asyncio.get_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\AppData\Local\Programs\Python\Python311\Lib\asyncio\events.py", line 677, in get_event_loop
+    raise RuntimeError('There is no current event loop in thread %r.'
+RuntimeError: There is no current event loop in thread 'aiogram_executor'.
+2025-11-05 21:21:14,022 [INFO] Polling started in background thread
+2025-11-05 21:24:05,644 [INFO] Starting aiogram polling...
+2025-11-05 21:24:05,947 [INFO] Polling started in background thread
+2025-11-05 21:24:05,948 [WARNING] Goodbye!
+2025-11-05 21:24:05,948 [ERROR] Executor polling crashed
+Traceback (most recent call last):
+  File "c:\Users\panas\OneDrive\Documents\Родителям\bot.py", line 380, in _run_v2_executor
+    aiogram_executor.start_polling(dp, skip_updates=True)
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\utils\executor.py", line 45, in start_polling
+    executor.start_polling(
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\utils\executor.py", line 320, in start_polling
+    loop.run_until_complete(self._startup_polling())
+  File "C:\Users\panas\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\utils\executor.py", line 372, in _startup_polling
+    await self._welcome()
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\utils\executor.py", line 361, in _welcome
+    user = await self.dispatcher.bot.me
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\bot.py", line 30, in me
+    setattr(self, '_me', await self.get_me())
+                         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\bot.py", line 233, in get_me
+    result = await self.request(api.Methods.GET_ME, payload)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\base.py", line 236, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\api.py", line 139, in make_request
+    async with session.post(url, data=req, **kwargs) as response:
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\client.py", line 1167, in __aenter__
+    self._resp = await self._coro
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\client.py", line 493, in _request
+    with timer:
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\helpers.py", line 705, in __enter__
+    raise RuntimeError(
+RuntimeError: Timeout context manager should be used inside a task
+2025-11-05 21:25:29,836 [INFO] Starting aiogram polling...
+2025-11-05 21:25:30,214 [INFO] Polling started as asyncio task
+2025-11-05 21:25:30,214 [INFO] Start polling.
+2025-11-05 22:57:49,229 [INFO] Starting aiogram polling...
+2025-11-05 22:57:49,677 [INFO] Polling started as asyncio task
+2025-11-05 22:57:49,678 [INFO] Start polling.
+2025-11-18 16:23:10,902 [INFO] Starting aiogram polling...
+2025-11-18 16:23:11,097 [INFO] Polling started as asyncio task
+2025-11-18 16:23:11,097 [INFO] Start polling.
+2025-11-22 11:48:59,109 [INFO] Starting aiogram polling...
+2025-11-22 11:48:59,433 [INFO] Polling started as asyncio task
+2025-11-22 11:48:59,433 [INFO] Start polling.
+2025-11-22 11:57:24,039 [INFO] Starting aiogram polling...
+2025-11-22 11:57:24,343 [INFO] Polling started as asyncio task
+2025-11-22 11:57:24,343 [INFO] Start polling.
+2025-11-22 12:00:58,957 [INFO] Starting aiogram polling...
+2025-11-22 12:00:59,289 [INFO] Polling started as asyncio task
+2025-11-22 12:00:59,289 [INFO] Start polling.
+2026-01-09 22:11:57,357 [INFO] Starting aiogram polling...
+2026-01-09 22:11:57,659 [INFO] Polling started as asyncio task
+2026-01-09 22:11:57,659 [INFO] Start polling.
+2026-01-09 23:27:05,640 [INFO] Starting aiogram polling...
+2026-01-09 23:27:05,909 [INFO] Polling started as asyncio task
+2026-01-09 23:27:05,909 [INFO] Start polling.
+2026-01-09 23:32:52,865 [INFO] Starting aiogram polling...
+2026-01-09 23:32:53,114 [INFO] Polling started as asyncio task
+2026-01-09 23:32:53,114 [INFO] Start polling.
+2026-01-09 23:37:02,683 [INFO] Starting aiogram polling...
+2026-01-09 23:37:02,939 [INFO] Polling started as asyncio task
+2026-01-09 23:37:02,939 [INFO] Start polling.
+2026-01-09 23:44:41,047 [INFO] Starting aiogram polling...
+2026-01-09 23:44:41,311 [INFO] Polling started as asyncio task
+2026-01-09 23:44:41,311 [INFO] Start polling.
+2026-01-10 11:43:16,790 [INFO] Starting aiogram polling...
+2026-01-10 11:43:17,066 [INFO] Polling started as asyncio task
+2026-01-10 11:43:17,067 [INFO] Start polling.
+2026-01-10 12:10:03,193 [INFO] Starting aiogram polling...
+2026-01-10 12:10:03,460 [INFO] Polling started as asyncio task
+2026-01-10 12:10:03,460 [INFO] Start polling.
+2026-01-10 12:36:43,110 [ERROR] Cause exception while getting updates.
+Traceback (most recent call last):
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\api.py", line 139, in make_request
+    async with session.post(url, data=req, **kwargs) as response:
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\client.py", line 1167, in __aenter__
+    self._resp = await self._coro
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\client.py", line 586, in _request
+    await resp.start(conn)
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\client_reqrep.py", line 905, in start
+    message, payload = await protocol.read()  # type: ignore[union-attr]
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\streams.py", line 616, in read
+    await self._waiter
+aiohttp.client_exceptions.ClientOSError: [WinError 1236] Подключение к сети было разорвано локальной системой
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 381, in start_polling
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\bot.py", line 110, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\base.py", line 236, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\api.py", line 142, in make_request
+    raise exceptions.NetworkError(f"aiohttp client throws an error: {e.__class__.__name__}: {e}")
+aiogram.utils.exceptions.NetworkError: Aiohttp client throws an error: ClientOSError: [WinError 1236] Подключение к сети было разорвано локальной системой
+2026-01-23 19:49:00,091 [INFO] Starting aiogram polling...
+2026-01-23 19:49:00,381 [INFO] Polling started as asyncio task
+2026-01-23 19:49:00,381 [INFO] Start polling.
+2026-02-08 12:33:59,387 [INFO] Starting aiogram polling...
+2026-02-08 12:33:59,593 [INFO] Polling started as asyncio task
+2026-02-08 12:33:59,593 [INFO] Start polling.
+2026-02-08 12:50:28,252 [ERROR] Cause exception while getting updates.
+Traceback (most recent call last):
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\api.py", line 139, in make_request
+    async with session.post(url, data=req, **kwargs) as response:
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\client.py", line 1167, in __aenter__
+    self._resp = await self._coro
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\client.py", line 586, in _request
+    await resp.start(conn)
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\client_reqrep.py", line 905, in start
+    message, payload = await protocol.read()  # type: ignore[union-attr]
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiohttp\streams.py", line 616, in read
+    await self._waiter
+aiohttp.client_exceptions.ClientOSError: [WinError 1236] Подключение к сети было разорвано локальной системой
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 381, in start_polling
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\bot.py", line 110, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\base.py", line 236, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\panas\OneDrive\Documents\Родителям\.venv\Lib\site-packages\aiogram\bot\api.py", line 142, in make_request
+    raise exceptions.NetworkError(f"aiohttp client throws an error: {e.__class__.__name__}: {e}")
+aiogram.utils.exceptions.NetworkError: Aiohttp client throws an error: ClientOSError: [WinError 1236] Подключение к сети было разорвано локальной системой
