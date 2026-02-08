@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обратная связь — ТехДом</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20251027">
+    <script src="{{ url_for('static', filename='main.js') }}?v=20251027" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <div class="logo">
+                <a href="{{ url_for('main') }}" aria-label="На главную">
+                    <span class="logo-img" aria-hidden="true">
+                        <img src="{{ url_for('static', filename='img/logo/mini-home.png') }}" alt="" />
+                    </span>
+                    <span class="logo-text">ТехДом</span>
+                </a>
+            </div>
+            <button class="theme-toggle" aria-label="Переключить тему" title="Переключить тему">
+                <span class="theme-icon" aria-hidden="true">🌗</span>
+            </button>
+            <div class="menu-btn" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="primary-menu" class="nav-links">
+                <li><a href="{{ url_for('main') }}">Главная</a></li>
+                <li><a href="{{ url_for('price') }}">Цены</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section">
+      <div class="container">
+        <div class="main-content" style="margin:0;">
+            <h1>Обратная связь</h1>
+            <p class="section-subtitle">Заполните форму — мы свяжемся с вами</p>
+        </div>
+        <form id="feedback-form" class="feedback-form" novalidate>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" placeholder="Ваше имя" required />
+                </div>
+                <div class="form-field">
+                    <label for="telephone">Телефон</label>
+                    <input type="tel" id="telephone" name="telephone" placeholder="+7XXXXXXXXXX" required />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="mail@example.com" />
+                </div>
+                <div class="form-field">
+                    <label for="subject">Тема</label>
+                    <input type="text" id="subject" name="subject" placeholder="Коротко о задаче" />
+                </div>
+            </div>
+            <div class="form-field">
+                <label for="message">Сообщение</label>
+                <textarea id="message" name="message" rows="4" placeholder="Опишите задачу"></textarea>
+            </div>
+            <button type="submit" class="btn primary" id="feedback-submit">Отправить</button>
+            <p id="feedback-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <div class="page-navigation">
+        <a href="{{ url_for('price') }}" class="nav-button prev">
+            <i class="fas fa-arrow-left"></i> К списку услуг
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info" id="contact">
+                <h4>Контакты</h4>
+                <p><i class="fas fa-phone"></i>Телефон: +7 ............</p>
+                <p><i class="fas fa-envelope"></i>Почта: </p>
+                <p><i class="fas fa-map-marker-alt"></i>Адрес: Ярославль</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

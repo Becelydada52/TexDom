@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТехДом - Промышленные решения</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20251027">
+    <script src="{{ url_for('static', filename='main.js') }}?v=20251027" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <div class="logo">
+                <a href="{{ url_for('main') }}" aria-label="На главную">
+                    <span class="logo-img" aria-hidden="true">
+                        <img src="{{ url_for('static', filename='img/logo/mini-2stick.png') }}" alt="" />
+                    </span>
+                    <span class="logo-text">ТехДом</span>
+                </a>
+            </div>
+            <button class="theme-toggle" aria-label="Переключить тему" title="Переключить тему">
+                <span class="theme-icon" aria-hidden="true">🌗</span>
+            </button>
+            <div class="menu-btn" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="primary-menu" class="nav-links">
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="{{ url_for('price') }}">Цены</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="main" class="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="main-content">
+            <img class="hero-logo" src="{{ url_for('static', filename='img/logo/home.png') }}" alt="ТехДом" loading="eager" />
+            <h1>Электрика и водоснабжение под ключ</h1>
+            <p>Проектирование, монтаж и обслуживание инженерных сетей для дома и бизнеса. Работаем по договору, с гарантией и понятной сметой.</p>
+            <div class="hero-facts" aria-label="Ключевые преимущества">
+                <div class="fact">Договор и смета</div>
+                <div class="fact">Гарантия на работы</div>
+                <div class="fact">Выезд на объект</div>
+                <div class="fact">Сроки по этапам</div>
+            </div>
+            <div class="hero-cta">
+                <a class="btn primary" href="{{ url_for('obrsvaz') }}">Получить расчёт</a>
+                <a class="btn ghost" href="{{ url_for('price') }}">Посмотреть цены</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section trust-strip">
+        <div class="container">
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <h3>Безопасно</h3>
+                    <p>Соблюдаем нормы, аккуратный монтаж, контроль качества.</p>
+                </div>
+                <div class="trust-item">
+                    <h3>Прозрачно</h3>
+                    <p>Фиксируем объём работ и стоимость до старта.</p>
+                </div>
+                <div class="trust-item">
+                    <h3>В срок</h3>
+                    <p>Согласуем этапы и даты, держим связь по прогрессу.</p>
+                </div>
+                <div class="trust-item">
+                    <h3>С сервисом</h3>
+                    <p>Поддержка, диагностика и обслуживание после сдачи.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section services">
+        <div class="container">
+            <h2 class="section-title">Наши услуги</h2>
+            <p class="section-subtitle">Подбираем оптимальные решения под ваши задачи и бюджет</p>
+            <div class="cards">
+                <a class="card service-card placeholder" href="{{ url_for('obrsvaz') }}" aria-label="Оставить заявку">
+                    <div class="icon-wrap"><i class="fas fa-tools"></i></div>
+                    <h3>Услуга (заглушка)</h3>
+                    <p>Будет позже</p>
+                    <span class="btn ghost service-cta">Подробнее</span>
+                </a>
+                <a class="card service-card featured" href="{{ url_for('service_detail', slug='electric') }}" aria-label="Подробнее про Электрику">
+                    <div class="icon-wrap electric"><i class="fas fa-bolt"></i></div>
+                    <h3>Электрика</h3>
+                    <p>Щиты, разводка, освещение, автоматизация и пусконаладка с соблюдением норм ПУЭ.</p>
+                    <span class="btn ghost service-cta">Подробнее</span>
+                </a>
+                <a class="card service-card featured" href="{{ url_for('service_detail', slug='water') }}" aria-label="Подробнее про Водоотведение">
+                    <div class="icon-wrap water"><i class="fas fa-faucet"></i></div>
+                    <h3>Водоотведение</h3>
+                    <p>Разводка, подключение, узлы и обслуживание систем водоснабжения и канализации.</p>
+                    <span class="btn ghost service-cta">Подробнее</span>
+                </a>
+                <a class="card service-card featured" href="{{ url_for('service_detail', slug='vent') }}" aria-label="Подробнее про Вентиляцию">
+                    <div class="icon-wrap vent"><i class="fas fa-wind"></i></div>
+                    <h3>Вентиляция</h3>
+                    <p>Приточно-вытяжные системы, фильтрация и балансировка воздушных потоков.</p>
+                    <span class="btn ghost service-cta">Подробнее</span>
+                </a>
+                <a class="card service-card placeholder" href="{{ url_for('obrsvaz') }}" aria-label="Оставить заявку">
+                    <div class="icon-wrap"><i class="fas fa-clipboard-check"></i></div>
+                    <h3>Услуга (заглушка)</h3>
+                    <p>будет позже</p>
+                    <span class="btn ghost service-cta">Подробнее</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section benefits">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-user-hard-hat"></i>
+                    <h4>Опытные инженеры</h4>
+                    <p>Квалифицированная команда с реальными кейсами в промышленности и частном секторе.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Гарантии и безопасность</h4>
+                    <p>Соблюдаем стандарты и используем сертифицированные материалы.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-clock"></i>
+                    <h4>Сроки под контролем</h4>
+                    <p>Планирование, прозрачные этапы работ и отчетность по прогрессу.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-coins"></i>
+                    <h4>Честные цены</h4>
+                    <p>Фиксируем цену и предлагаем несколько уровней комплектации.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Как мы работаем</h2>
+            <p class="section-subtitle">Прозрачный процесс — от заявки до сдачи объекта</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>1. Заявка и уточнение задачи</h3>
+                    <p>Собираем вводные, задаём вопросы и уточняем требования, чтобы предложить оптимальное решение.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>2. Обследование и расчёты</h3>
+                    <p>При необходимости выезжаем на объект, выполняем замеры и расчёты, фиксируем объём работ.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>3. Проект и смета</h3>
+                    <p>Формируем план работ, материалы, сроки и стоимость. Согласуем этапы и контрольные точки.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>4. Монтаж и пусконаладка</h3>
+                    <p>Выполняем работы, тестируем систему, настраиваем автоматику и сдаём по чек‑листу.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>5. Документация и гарантия</h3>
+                    <p>Передаём исполнительную документацию, инструкции и гарантийные обязательства.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>6. Сервис</h3>
+                    <p>Поддержка и обслуживание: профилактика, диагностика, доработка и модернизация.</p>
+                </div>
+            </div>
+            <div class="hero-cta" style="margin-top: 1rem;">
+                <a class="btn primary" href="{{ url_for('obrsvaz') }}">Оценить проект</a>
+                <a class="btn ghost" href="{{ url_for('price') }}">Посмотреть цены</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Кейсы</h2>
+            <p class="section-subtitle">Примеры выполненных объектов (временные заглушки)</p>
+            <div class="cards">
+                <div class="card service-card">
+                    <h3>Объект 1</h3>
+                    <p>Короткое описание кейса. Площадь/сроки/результат — текст заглушка.</p>
+                </div>
+                <div class="card service-card">
+                    <h3>Объект 2</h3>
+                    <p>Короткое описание кейса. Площадь/сроки/результат — текст заглушка.</p>
+                </div>
+                <div class="card service-card">
+                    <h3>Объект 3</h3>
+                    <p>Короткое описание кейса. Площадь/сроки/результат — текст заглушка.</p>
+                </div>
+                <div class="card service-card">
+                    <h3>Объект 4</h3>
+                    <p>Короткое описание кейса. Площадь/сроки/результат — текст заглушка.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">FAQ</h2>
+            <p class="section-subtitle">Частые вопросы</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Сколько занимает проект и монтаж?</h3>
+                    <p>Зависит от объекта и объёма работ. Дадим сроки после уточнения задачи и обследования.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Работаете по договору?</h3>
+                    <p>Да, фиксируем объём работ, сроки, гарантию и ответственность сторон.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Можно ли выполнить работы по этапам?</h3>
+                    <p>Да, делим на этапы и согласуем график — удобно для бюджета и контроля.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info" id="contact">
+                <h4>Контакты</h4>
+                <p><i class="fas fa-phone"></i>Телефон: </p>
+                <p><i class="fas fa-envelope"></i>Почта: </p>
+                <p><i class="fas fa-map-marker-alt"></i>Адрес:</p>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>
