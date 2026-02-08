@@ -4,7 +4,7 @@ import asyncio
 import re
 from typing import Any, Dict
 from dotenv import load_dotenv
-
+from json import JSONDecodeError
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -115,6 +115,10 @@ async def main(request: Request):
 async def price(request: Request):
     return templates.TemplateResponse('Price.html', {'request': request})
 
+@app.get('/price', response_class=HTMLResponse)
+async def price(request: Request):
+    return templates.TemplateResponse('Price.html', {'request': request})
+
 @app.get('/price1', response_class=HTMLResponse)
 async def price1(request: Request):
     return templates.TemplateResponse('price1.html', {'request': request})
@@ -142,9 +146,18 @@ async def service_detail(request: Request, slug: str):
 async def handle_feedback(request: Request):
     try:
         data: Dict[str, Any] = await request.json()
+    except JSONDecodeError:
+        return JSONResponse({'status': 'error', 'message': 'Некорректный JSON в запросе'}, status_code=400)
+    except Exception as e:
+        print(f"Ошибка чтения JSON: {e}")
+        return JSONResponse({'status': 'error', 'message': 'Не удалось прочитать данные формы'}, status_code=400)
+
+    try:
         phone = data.get('telephone', '') or ''
+        phone = re.sub(r'[^\d+]', '', phone)
         if not re.match(r'^(\+7|8)\d{10}$', phone):
             return JSONResponse({'status': 'error', 'message': 'Неверный формат телефона. Используйте +7 или 8 и 10 цифр'}, status_code=400)
+        data['telephone'] = phone
 
         order_id = await add_order_from_web(data)
         print(f"Заказ сохранён (ID: {order_id}) и уведомление отправлено")

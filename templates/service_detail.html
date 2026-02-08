@@ -58,11 +58,11 @@
                 <div class="section" style="padding-top:1.5rem;">
                     <div class="container" style="max-width: 1000px;">
                         <h2 class="section-title" style="text-align:left;">Описание</h2>
-                        <p style="color:#ffffffd7; border-color: black;">{{ service.description }}</p>
+                        <p class="service-description-text">{{ service.description }}</p>
 
                         {% if service.features %}
                         <h3 class="section-subtitle" style="text-align:left; margin-top:1rem;">Что входит</h3>
-                        <ul style="margin-left:1rem; color:#ffffffd7; border-color: black;">
+                        <ul class="service-feature-list">
                             {% for f in service.features %}
                             <li>{{ f }}</li>
                             {% endfor %}
