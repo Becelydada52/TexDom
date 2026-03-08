@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import logging
 
-from aiogram import Router
+from aiogram import F, Router
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import CallbackQuery, Message
 
-from app.bot.deps import ensure_message_role
+from app.bot.deps import ensure_callback_role, ensure_message_role
+from app.bot.keyboards.users import users_menu_kb
 from app.services.notifications import NOTIFICATION_ROLES
 from app.services.users import ROLE_PRIORITY, UserService
 
@@ -65,6 +66,81 @@ async def _list_notification_recipients(user_service: UserService) -> dict[str, 
     return {role: groups.get(role, []) for role in NOTIFICATION_ROLES}
 
 
+def _users_text(groups: dict[str, list[int]]) -> str:
+    return (
+        "👥 Пользователи по ролям:\n\n"
+        f"{_format_group('DEVELOPERS', groups['developer'])}\n"
+        f"{_format_group('ADMINS', groups['admin'])}\n"
+        f"{_format_group('USERS', groups['user'])}"
+    )
+
+
+def _notify_text(recipients: dict[str, list[int]]) -> str:
+    return (
+        "📨 Получатели новых заявок:\n\n"
+        f"{_format_group('DEVELOPERS', recipients['developer'])}\n"
+        f"{_format_group('ADMINS', recipients['admin'])}"
+    )
+
+
+def _role_help_text(actor_role: str) -> str:
+    base = [
+        "➕ Назначение ролей",
+        "",
+        "Используйте:",
+        "/role_set <@username|id> <role>",
+        "/role_del <@username|id>",
+        "",
+        "Примеры:",
+        "/role_set @username admin",
+        "/role_set 123456789 user",
+        "/role_del @username",
+    ]
+    if actor_role == "developer":
+        base.append("")
+        base.append("Developer может назначать: user | admin | developer")
+    else:
+        base.append("")
+        base.append("Admin может назначать только: user | admin")
+    return "\n".join(base)
+
+
+def _notify_help_text(actor_role: str) -> str:
+    lines = [
+        "🔔 Настройка получателей заявок",
+        "",
+        "Используйте:",
+        "/notify_add <@username|id> [role=admin|developer]",
+        "/notify_del <@username|id>",
+        "/notify_list",
+        "",
+        "Примеры:",
+        "/notify_add @username admin",
+        "/notify_add 123456789 developer",
+        "/notify_del @username",
+    ]
+    if actor_role != "developer":
+        lines.append("")
+        lines.append("Admin может добавлять только получателей с ролью admin.")
+    return "\n".join(lines)
+
+
+def _developer_help_text() -> str:
+    return "\n".join(
+        [
+            "🛠 Команды developer",
+            "",
+            "/grant <user_id> <role>",
+            "/revoke <user_id>",
+            "/logs",
+            "/restart",
+            "",
+            "Для обычной работы удобнее использовать:",
+            "/role_set, /role_del, /notify_add, /notify_del, /notify_list",
+        ]
+    )
+
+
 @router.message(Command("users"))
 async def cmd_users(message: Message, user_service: UserService) -> None:
     actor_role = await ensure_message_role(message, user_service, ("admin", "developer"))
@@ -72,13 +148,7 @@ async def cmd_users(message: Message, user_service: UserService) -> None:
         return
 
     groups = await user_service.users_by_role()
-    text = (
-        "👥 Пользователи по ролям:\n\n"
-        f"{_format_group('DEVELOPERS', groups['developer'])}\n"
-        f"{_format_group('ADMINS', groups['admin'])}\n"
-        f"{_format_group('USERS', groups['user'])}"
-    )
-    await message.answer(text)
+    await message.answer(_users_text(groups), reply_markup=users_menu_kb(actor_role))
 
 
 @router.message(Command("notify_list"))
@@ -88,12 +158,7 @@ async def cmd_notify_list(message: Message, user_service: UserService) -> None:
         return
 
     recipients = await _list_notification_recipients(user_service)
-    text = (
-        "📨 Получатели новых заявок:\n\n"
-        f"{_format_group('DEVELOPERS', recipients['developer'])}\n"
-        f"{_format_group('ADMINS', recipients['admin'])}"
-    )
-    await message.answer(text)
+    await message.answer(_notify_text(recipients), reply_markup=users_menu_kb(actor_role))
 
 
 @router.message(Command("role_set"))
@@ -218,3 +283,59 @@ async def cmd_notify_del(message: Message, user_service: UserService) -> None:
         await message.answer(f"✅ {label} больше не получает новые заявки")
     else:
         await message.answer("Пользователь не получает новые заявки")
+
+
+@router.callback_query(F.data == "users_menu")
+async def cb_users_menu(call: CallbackQuery, user_service: UserService) -> None:
+    actor_role = await ensure_callback_role(call, user_service, ("admin", "developer"))
+    if actor_role is None or call.message is None:
+        return
+    await call.answer()
+    await call.message.answer("Управление доступом и получателями заявок:", reply_markup=users_menu_kb(actor_role))
+
+
+@router.callback_query(F.data == "users_list")
+async def cb_users_list(call: CallbackQuery, user_service: UserService) -> None:
+    actor_role = await ensure_callback_role(call, user_service, ("admin", "developer"))
+    if actor_role is None or call.message is None:
+        return
+    await call.answer()
+    groups = await user_service.users_by_role()
+    await call.message.answer(_users_text(groups), reply_markup=users_menu_kb(actor_role))
+
+
+@router.callback_query(F.data == "notify_list")
+async def cb_notify_list(call: CallbackQuery, user_service: UserService) -> None:
+    actor_role = await ensure_callback_role(call, user_service, ("admin", "developer"))
+    if actor_role is None or call.message is None:
+        return
+    await call.answer()
+    recipients = await _list_notification_recipients(user_service)
+    await call.message.answer(_notify_text(recipients), reply_markup=users_menu_kb(actor_role))
+
+
+@router.callback_query(F.data == "role_help")
+async def cb_role_help(call: CallbackQuery, user_service: UserService) -> None:
+    actor_role = await ensure_callback_role(call, user_service, ("admin", "developer"))
+    if actor_role is None or call.message is None:
+        return
+    await call.answer()
+    await call.message.answer(_role_help_text(actor_role), reply_markup=users_menu_kb(actor_role))
+
+
+@router.callback_query(F.data == "notify_help")
+async def cb_notify_help(call: CallbackQuery, user_service: UserService) -> None:
+    actor_role = await ensure_callback_role(call, user_service, ("admin", "developer"))
+    if actor_role is None or call.message is None:
+        return
+    await call.answer()
+    await call.message.answer(_notify_help_text(actor_role), reply_markup=users_menu_kb(actor_role))
+
+
+@router.callback_query(F.data == "developer_help")
+async def cb_developer_help(call: CallbackQuery, user_service: UserService) -> None:
+    actor_role = await ensure_callback_role(call, user_service, ("developer",))
+    if actor_role is None or call.message is None:
+        return
+    await call.answer()
+    await call.message.answer(_developer_help_text(), reply_markup=users_menu_kb(actor_role))
