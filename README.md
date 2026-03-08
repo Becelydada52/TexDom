@@ -218,9 +218,24 @@ conn.close()
 Через Telegram-команды:
 - `/grant <user_id> <role>` — только для `developer`;
 - `/revoke <user_id>` — только для `developer`;
-- `/user_add <@username|id> [role]` — для `admin` и `developer`;
-- `/user_del <@username|id> [role]` — для `admin` и `developer`;
+- `/role_set <@username|id> <role>` — назначить роль по `username` или `user_id`;
+- `/role_del <@username|id>` — удалить роль по `username` или `user_id`;
+- `/user_add <@username|id> <role>` — алиас для `/role_set`;
+- `/user_del <@username|id>` — алиас для `/role_del`;
 - `/users` — список пользователей по ролям.
+
+Ограничения:
+- `admin` может управлять ролями `user` и `admin`;
+- роль `developer` назначает и удаляет только `developer`.
+
+### Как настроить, кто получает новые заявки
+
+Получатели уведомлений о новых заявках определяются ролями `admin` и `developer`.
+
+Команды:
+- `/notify_add <@username|id> [role=admin|developer]` — добавить получателя заявок;
+- `/notify_del <@username|id>` — убрать из получателей заявок;
+- `/notify_list` — показать текущих получателей новых заявок.
 
 ### Как посмотреть логи из бота
 
