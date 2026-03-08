@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Премиум пакет — ТехДом</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260223">
+    <script src="{{ url_for('static', filename='main.js') }}?v=20260223" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <div class="logo">
+                <a href="{{ url_for('main') }}" aria-label="На главную">
+                    <span class="logo-img" aria-hidden="true">
+                        <img src="{{ url_for('static', filename='img/logo/mini-home.png') }}" alt="" />
+                    </span>
+                    <span class="logo-text">ТехДом</span>
+                </a>
+            </div>
+            <button class="theme-toggle" aria-label="Переключить тему" title="Переключить тему">
+                <span class="theme-icon" aria-hidden="true">🌗</span>
+            </button>
+            <div class="menu-btn" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="primary-menu" class="nav-links">
+                <li><a href="{{ url_for('main') }}">Главная</a></li>
+                <li><a href="{{ url_for('price') }}">Цены</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section">
+      <div class="container">
+        <div class="main-content" style="margin:0;">
+          <h1>Премиум пакет услуг</h1>
+          <p class="section-subtitle">Максимум возможностей и приоритетная поддержка</p>
+          <div class="price-tag">от 25000 ₽</div>
+        </div>
+
+        <div class="cards" style="margin-top: 1rem;">
+          <div class="card service-card" style="grid-column: 1 / -1;">
+            <div class="service-description">
+            <h2>Что входит в премиум пакет:</h2>
+            
+            <div class="service-item">
+                <h3><i class="fas fa-comments"></i> Консультация</h3>
+                <p>Профессиональная консультация по всем вопросам, связанным с вашим оборудованием и производственными процессами. Наши специалисты помогут разобраться в технических аспектах и предложат оптимальные решения.</p>
+            </div>
+
+            <div class="service-item">
+                <h3><i class="fas fa-search"></i> Базовая диагностика</h3>
+                <p>Комплексная проверка состояния оборудования, выявление потенциальных проблем и оценка эффективности работы. Включает визуальный осмотр, проверку основных параметров и составление отчета о состоянии.</p>
+            </div>
+
+            <div class="service-item">
+                <h3><i class="fas fa-headset"></i> Техническая поддержка</h3>
+                <p>Обеспечение технической поддержки в рабочее время. Наши специалисты готовы ответить на ваши вопросы и помочь в решении возникающих проблем с оборудованием.</p>
+            </div>
+            </div>
+
+            <div class="benefits" style="margin-top:1rem;">
+            <h2>Преимущества базового пакета:</h2>
+            <ul>
+                <li>Доступная стоимость</li>
+                <li>Быстрый старт сотрудничества</li>
+                <li>Профессиональная поддержка</li>
+                <li>Гибкие условия обслуживания</li>
+            </ul>
+            </div>
+
+            <div class="hero-cta" style="margin-top: 0.5rem;">
+              <a href="{{ url_for('obrsvaz') }}" class="btn primary">Оставить заявку</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-navigation">
+        <a href="{{ url_for('price') }}" class="nav-button prev">
+            <i class="fas fa-arrow-left"></i> К списку услуг
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info" id="contact">
+                <h4>Контакты</h4>
+                <p><i class="fas fa-phone"></i>Телефон: +7 ............</p>
+                <p><i class="fas fa-envelope"></i>Почта: </p>
+                <p><i class="fas fa-map-marker-alt"></i>Адрес: Ярославль</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
