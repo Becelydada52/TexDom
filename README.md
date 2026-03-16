@@ -169,6 +169,8 @@ app.db
 
 Если пользователь не найден в БД, сервисы считают его `guest`.
 
+Приоритет ролей: `developer > admin > user`.
+
 ## Эксплуатация и обслуживание
 
 ### Где находится лог
@@ -213,9 +215,24 @@ conn.close()
 '@ | .\.venv\Scripts\python.exe -
 ```
 
+Примечание:
+- пример выше работает для SQLite по умолчанию, то есть для файла `app.db` в корне проекта;
+- если в `.env` задан свой `DATABASE_URL`, смотреть и менять нужно именно ту базу, которая указана там.
+
 ### Как выдать роль пользователю
 
-Через Telegram-команды:
+Самый простой сценарий такой:
+1. Пользователь пишет боту `/id` и получает свой `chat_id`.
+2. Если в проекте уже есть `developer`, он назначает нужную роль через Telegram-команду.
+3. Если это самый первый `developer`, его нужно один раз добавить напрямую в таблицу `users`.
+
+#### Вариант 1. Через Telegram-команды
+
+- чтобы узнать свой `chat_id`, используйте `/id`;
+- чтобы узнать `chat_id` другого пользователя по `@username`, используйте `/getid @username` (`admin` или `developer`);
+- запись по `@username` сработает только если у пользователя есть username и бот может его найти.
+
+Команды:
 - `/grant <user_id> <role>` — только для `developer`;
 - `/revoke <user_id>` — только для `developer`;
 - `/role_set <@username|id> <role>` — назначить роль по `username` или `user_id`;
@@ -227,6 +244,130 @@ conn.close()
 Ограничения:
 - `admin` может управлять ролями `user` и `admin`;
 - роль `developer` назначает и удаляет только `developer`.
+
+Примеры:
+
+```text
+/role_set 123456789 admin
+/role_set @username user
+/role_del 123456789
+/users
+```
+
+#### Вариант 2. Как добавить самого первого `developer` напрямую в БД
+
+Если в базе еще нет ни одного `developer`, Telegram-команды для выдачи роли использовать будет некому. В этом случае добавьте запись в таблицу `users` вручную.
+
+Пример ниже:
+- создает пользователя с ролью `developer`, если его еще нет;
+- либо обновляет роль существующего пользователя;
+- рассчитан на SQLite-файл `app.db` в корне проекта.
+
+```powershell
+@'
+import sqlite3
+
+telegram_id = 123456789  # замените на ваш chat_id из команды /id
+role = "developer"
+
+conn = sqlite3.connect("app.db")
+cur = conn.cursor()
+
+cur.execute(
+    """
+    INSERT INTO users (telegram_id, role)
+    VALUES (?, ?)
+    ON CONFLICT(telegram_id) DO UPDATE SET
+        role = excluded.role,
+        updated_at = CURRENT_TIMESTAMP
+    """,
+    (telegram_id, role),
+)
+
+conn.commit()
+
+for row in cur.execute(
+    "SELECT telegram_id, role, created_at, updated_at FROM users WHERE telegram_id = ?",
+    (telegram_id,),
+):
+    print(row)
+
+conn.close()
+'@ | .\.venv\Scripts\python.exe -
+```
+
+После этого перезапустите бота и дальше уже можно управлять ролями через:
+
+```text
+/role_set
+/role_del
+/grant
+/revoke
+/users
+```
+
+#### Вариант 3. Прямое управление таблицей `users`
+
+Если нужно поменять роль или удалить доступ без Telegram-команд, можно работать напрямую с таблицей `users`.
+
+Назначить или изменить роль:
+
+```powershell
+@'
+import sqlite3
+
+telegram_id = 123456789
+role = "admin"  # user | admin | developer
+
+conn = sqlite3.connect("app.db")
+cur = conn.cursor()
+cur.execute(
+    """
+    INSERT INTO users (telegram_id, role)
+    VALUES (?, ?)
+    ON CONFLICT(telegram_id) DO UPDATE SET
+        role = excluded.role,
+        updated_at = CURRENT_TIMESTAMP
+    """,
+    (telegram_id, role),
+)
+conn.commit()
+conn.close()
+'@ | .\.venv\Scripts\python.exe -
+```
+
+Удалить роль совсем:
+
+```powershell
+@'
+import sqlite3
+
+telegram_id = 123456789
+
+conn = sqlite3.connect("app.db")
+cur = conn.cursor()
+cur.execute("DELETE FROM users WHERE telegram_id = ?", (telegram_id,))
+conn.commit()
+print(f"Удалено строк: {cur.rowcount}")
+conn.close()
+'@ | .\.venv\Scripts\python.exe -
+```
+
+Показать всех пользователей и роли:
+
+```powershell
+@'
+import sqlite3
+
+conn = sqlite3.connect("app.db")
+cur = conn.cursor()
+
+for row in cur.execute("SELECT telegram_id, role FROM users ORDER BY telegram_id"):
+    print(row)
+
+conn.close()
+'@ | .\.venv\Scripts\python.exe -
+```
 
 ### Как настроить, кто получает новые заявки
 

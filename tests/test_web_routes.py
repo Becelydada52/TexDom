@@ -22,7 +22,8 @@ def test_pages_routes_are_available() -> None:
 def test_service_detail_routes() -> None:
     asyncio.run(init_models())
     with TestClient(app=app) as client:
-        assert client.get("/services/electric").status_code == 200
+        for slug in SERVICES_CATALOG:
+            assert client.get(f"/services/{slug}").status_code == 200
         assert client.get("/services/unknown").status_code == 404
 
 

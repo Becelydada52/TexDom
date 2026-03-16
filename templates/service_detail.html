@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if service %}{{ service.title }} — ТехДом{% else %}Услуга не найдена — ТехДом{% endif %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260223">
-    <script src="{{ url_for('static', filename='main.js') }}?v=20260223" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260316">
+    <script src="{{ url_for('static', filename='main.js') }}?v=20260316" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
@@ -45,7 +45,7 @@
                 <h1 class="section-title">Услуга не найдена</h1>
                 <p class="section-subtitle">Запрошенная услуга недоступна или была переименована.</p>
             {% else %}
-                <div class="main-content" style="margin:0;">
+                <div class="main-content" style="margin: 0;">
                     <div class="hero-grid" aria-hidden="true"></div>
                     <h1>{{ service.title }}</h1>
                     <p>{{ service.lead }}</p>
@@ -55,49 +55,60 @@
                     </div>
                 </div>
 
-                <div class="section" style="padding-top:1.5rem;">
+                <div class="section" style="padding-top: 1.5rem;">
                     <div class="container" style="max-width: 1000px;">
-                        <h2 class="section-title" style="text-align:left;">Описание</h2>
+                        <h2 class="section-title" style="text-align: left;">Описание</h2>
                         <p class="service-description-text">{{ service.description }}</p>
 
                         {% if service.features %}
-                        <h3 class="section-subtitle" style="text-align:left; margin-top:1rem;">Что входит</h3>
+                        <h3 class="section-subtitle" style="text-align: left; margin-top: 1rem;">Что входит</h3>
                         <ul class="service-feature-list">
-                            {% for f in service.features %}
-                            <li>{{ f }}</li>
+                            {% for feature in service.features %}
+                            <li>{{ feature }}</li>
                             {% endfor %}
                         </ul>
                         {% endif %}
 
-                        <h3 class="section-subtitle" style="text-align:left; margin-top:1.25rem;">Галерея</h3>
+                        <h3 class="section-subtitle" style="text-align: left; margin-top: 1.25rem;">Фото</h3>
                         {% if service.albums %}
-                        <div class="album-tabs" role="tablist">
-                            {% for album in service.albums %}
-                            <button class="album-tab{% if loop.first %} active{% endif %}" role="tab" data-album-index="{{ loop.index0 }}">{{ album.title }}</button>
-                            {% endfor %}
+                        <div class="gallery-actions">
+                            <button type="button" class="btn ghost gallery-toggle" data-gallery-toggle aria-expanded="false" aria-controls="service-gallery">
+                                Посмотреть фото
+                            </button>
                         </div>
-                        {% for album in service.albums %}
-                        <div class="gallery-grid{% if not loop.first %} hidden{% endif %}" data-album="{{ loop.index0 }}">
-                            {% for it in album['items'] %}
-                            <a href="{{ it.src }}" class="gallery-item" data-index="{{ loop.index0 }}" data-caption="{{ it.caption }}" aria-label="Открыть фото {{ loop.index }}">
-                                <img src="{{ it.src }}" alt="{{ it.caption or (service.title ~ ' фото ' ~ loop.index) }}" loading="lazy" />
-                            </a>
-                            {% endfor %}
+                        <div id="service-gallery" class="service-gallery" hidden>
+                            <div class="gallery-grid">
+                                {% for album in service.albums %}
+                                    {% for item in album["items"] %}
+                                    <a href="{{ item.src }}" class="gallery-item" data-caption="{{ album.title }}: {{ item.caption }}" aria-label="Открыть фото">
+                                        <img src="{{ item.src }}" alt="{{ item.caption or service.title }}" loading="lazy" />
+                                    </a>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
-                        {% endfor %}
                         {% elif service.images %}
-                        <div class="gallery-grid">
-                            {% for img in service.images %}
-                            <a href="{{ img }}" class="gallery-item" data-index="{{ loop.index0 }}" aria-label="Открыть фото {{ loop.index }}">
-                                <img src="{{ img }}" alt="{{ service.title }} фото {{ loop.index }}" loading="lazy" />
-                            </a>
-                            {% endfor %}
+                        <div class="gallery-actions">
+                            <button type="button" class="btn ghost gallery-toggle" data-gallery-toggle aria-expanded="false" aria-controls="service-gallery">
+                                Посмотреть фото
+                            </button>
+                        </div>
+                        <div id="service-gallery" class="service-gallery" hidden>
+                            <div class="gallery-grid">
+                                {% for image in service.images %}
+                                <a href="{{ image }}" class="gallery-item" aria-label="Открыть фото {{ loop.index }}">
+                                    <img src="{{ image }}" alt="{{ service.title }} фото {{ loop.index }}" loading="lazy" />
+                                </a>
+                                {% endfor %}
+                            </div>
                         </div>
                         {% else %}
-                        <div class="card" style="height:160px; border-radius:14px; background:#eef4ff; display:grid; place-items:center; color:#2563eb;">Добавьте фото в static/img/{{ service.slug }}/</div>
+                        <div class="card" style="height: 160px; border-radius: 14px; background: #eef4ff; display: grid; place-items: center; color: #2563eb;">
+                            Фото для этой услуги пока не добавлены
+                        </div>
                         {% endif %}
 
-                        <h3 class="section-subtitle" style="text-align:left; margin-top:1.25rem;">Оставить заявку</h3>
+                        <h3 class="section-subtitle" style="text-align: left; margin-top: 1.25rem;">Оставить заявку</h3>
                         <form id="feedback-form" class="feedback-form" novalidate>
                             <div class="form-row">
                                 <div class="form-field">
@@ -133,12 +144,17 @@
     </section>
 
     <footer>
-        <div class="footer-content">
-            <div class="contact-info" id="contact">
+        <div class="footer-content footer-grid" id="contact">
+            <div class="footer-brand">
+                <h4>ТехДом</h4>
+                <p>Проектирование, монтаж и обслуживание инженерных систем для дома, коммерческих и технических объектов.</p>
+                <p><i class="fas fa-paper-plane"></i><span>Если задача уже сформулирована, можно сразу оставить заявку и приложить краткое описание объекта.</span></p>
+            </div>
+            <div class="footer-card">
                 <h4>Контакты</h4>
-                <p><i class="fas fa-phone"></i>Телефон: </p>
-                <p><i class="fas fa-envelope"></i>Почта: </p>
-                <p><i class="fas fa-map-marker-alt"></i>Адрес:</p>
+                <p><i class="fas fa-phone"></i><span>Телефон: +7 (___) ___-__-__</span></p>
+                <p><i class="fas fa-envelope"></i><span>Почта: example@company.ru</span></p>
+            </div>                <p><i class="fas fa-comment-dots"></i><span>Если контакты еще не готовы, форма заявки уже может быть основным каналом связи.</span></p>
             </div>
         </div>
     </footer>
