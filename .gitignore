@@ -1,9 +1,22 @@
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
 .env
+.env.*
+!.env.example
+
 .venv/
+venv/
+
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
+
+.vscode/
+.idea/
+
+node_modules/
 
 app.db
 *.db
@@ -14,5 +27,8 @@ app.db
 bot.log
 *.log
 *.bak
+
+.DS_Store
+Thumbs.db
 
 *key.txt
