@@ -31,18 +31,10 @@ SERVICES_CATALOG: dict[str, dict[str, Any]] = {
             {
                 "title": "Объекты",
                 "items": [
-                    {"src": "/assets/img/electric/1.jpg", "caption": "Пример работ"},
-                    {"src": "/assets/img/electric/2.jpg", "caption": "Пример работ"},
-                    {"src": "/assets/img/electric/3.jpg", "caption": "Пример работ"},
+                    {"src": "", "caption": "Пример работ"},
                 ],
             },
-            {
-                "title": "Щиты",
-                "items": [
-                    {"src": "/assets/img/electric/4.jpg", "caption": "Пример работ"},
-                    {"src": "/assets/img/electric/5.jpg", "caption": "Пример работ"},
-                ],
-            },
+                   
         ],
     },
     "vent": {
