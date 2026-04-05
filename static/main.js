@@ -231,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const caption = currentList[currentIndex].getAttribute('data-caption') || '';
             imgEl.src = href;
             captionEl.textContent = caption;
+            captionEl.hidden = !caption.trim();
             resetTransform();
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';

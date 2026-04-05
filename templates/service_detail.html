@@ -50,7 +50,6 @@
                     <h1>{{ service.title }}</h1>
                     <p>{{ service.lead }}</p>
                     <div class="hero-cta" style="margin-bottom: 1rem;">
-                        <a class="btn primary" href="{{ url_for('price') }}">Смотреть цены</a>
                         <a class="btn ghost" href="{{ url_for('main') }}#contact">Связаться</a>
                     </div>
                 </div>
@@ -80,7 +79,7 @@
                             <div class="gallery-grid">
                                 {% for album in service.albums %}
                                     {% for item in album["items"] %}
-                                    <a href="{{ item.src }}" class="gallery-item" data-caption="{{ album.title }}: {{ item.caption }}" aria-label="Открыть фото">
+                                    <a href="{{ item.src }}" class="gallery-item" data-caption="{{ item.caption or '' }}" aria-label="Открыть фото">
                                         <img src="{{ item.src }}" alt="{{ item.caption or service.title }}" loading="lazy" />
                                     </a>
                                     {% endfor %}

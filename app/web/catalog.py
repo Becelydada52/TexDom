@@ -14,7 +14,19 @@ SERVICES_CATALOG: dict[str, dict[str, Any]] = {
             "Монтаж по стандартам и нормам",
             "Пусконаладка и гарантия",
         ],
-        "albums": [],
+        "albums": [
+            {
+                "title": "",
+                "items": [
+                    {"src": "/assets/img/otopl/otop1.jpg", "caption": ""},
+                    {"src": "/assets/img/otopl/otop2.jpg", "caption": ""},
+                    {"src": "/assets/img/otopl/otop3.jpg", "caption": ""},
+                    {"src": "/assets/img/otopl/otop4.jpg", "caption": ""},
+                    {"src": "/assets/img/otopl/otop5.jpg", "caption": ""},
+                    {"src": "/assets/img/otopl/otop5.jpg", "caption": ""},
+                ],
+            },
+        ],
     },
     "electric": {
         "slug": "electric",
@@ -29,9 +41,13 @@ SERVICES_CATALOG: dict[str, dict[str, Any]] = {
         ],
         "albums": [
             {
-                "title": "Объекты",
+                "title": "",
                 "items": [
-                    {"src": "", "caption": "Пример работ"},
+                    {"src": "/assets/img/electric/elec1.jpg", "caption": ""},
+                    {"src": "/assets/img/electric/elec2.jpg", "caption": ""},
+                    {"src": "/assets/img/electric/elec3.jpg", "caption": ""},
+                    {"src": "/assets/img/electric/elec4.jpg", "caption": ""},
+                    {"src": "/assets/img/electric/elec5.jpg", "caption": ""},
                 ],
             },
                    
