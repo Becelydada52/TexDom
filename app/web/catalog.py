@@ -23,7 +23,6 @@ SERVICES_CATALOG: dict[str, dict[str, Any]] = {
                     {"src": "/assets/img/otopl/otop3.jpg", "caption": ""},
                     {"src": "/assets/img/otopl/otop4.jpg", "caption": ""},
                     {"src": "/assets/img/otopl/otop5.jpg", "caption": ""},
-                    {"src": "/assets/img/otopl/otop5.jpg", "caption": ""},
                 ],
             },
         ],
