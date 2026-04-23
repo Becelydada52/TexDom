@@ -1,4 +1,4 @@
-# ТехДом: сайт + Telegram-бот + SQLite
+# ИнТехДом: сайт + Telegram-бот + SQLite
 
 Проект объединяет:
 - web-приложение на `Litestar`;

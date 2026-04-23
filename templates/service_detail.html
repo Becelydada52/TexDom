@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if service %}{{ service.title }} — ТехДом{% else %}Услуга не найдена — ТехДом{% endif %}</title>
+    <title>{% if service %}{{ service.title }} — ИнТехДом{% else %}Услуга не найдена — ИнТехДом{% endif %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260316">
     <script src="{{ url_for('static', filename='main.js') }}?v=20260316" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -14,9 +14,9 @@
             <div class="logo">
                 <a href="{{ url_for('main') }}" aria-label="На главную">
                     <span class="logo-img" aria-hidden="true">
-                        <img src="{{ url_for('static', filename='img/logo/mini-home.png') }}" alt="" />
+                        <img src="{{ url_for('static', filename='img/logo/miniintexdom.png') }}" alt="ИнТехДом" />
                     </span>
-                    <span class="logo-text">ТехДом</span>
+                    <span class="logo-text">ИнТехДом</span>
                 </a>
             </div>
             <button class="theme-toggle" aria-label="Переключить тему" title="Переключить тему">
@@ -145,15 +145,13 @@
     <footer>
         <div class="footer-content footer-grid" id="contact">
             <div class="footer-brand">
-                <h4>ТехДом</h4>
+                <h4>ИнТехДом</h4>
                 <p>Проектирование, монтаж и обслуживание инженерных систем для дома, коммерческих и технических объектов.</p>
                 <p><i class="fas fa-paper-plane"></i><span>Если задача уже сформулирована, можно сразу оставить заявку и приложить краткое описание объекта.</span></p>
             </div>
             <div class="footer-card">
                 <h4>Контакты</h4>
-                <p><i class="fas fa-phone"></i><span>Телефон: +7 (___) ___-__-__</span></p>
-                <p><i class="fas fa-envelope"></i><span>Почта: example@company.ru</span></p>
-            </div>                <p><i class="fas fa-comment-dots"></i><span>Если контакты еще не готовы, форма заявки уже может быть основным каналом связи.</span></p>
+                <p><i class="fas fa-phone"></i><span>Телефон: +7 (920) 105-69-99</span></p>
             </div>
         </div>
     </footer>
