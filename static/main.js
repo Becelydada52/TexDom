@@ -99,6 +99,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.querySelectorAll('.phone-copy').forEach((button) => {
+        button.addEventListener('click', async () => {
+            const phone = button.dataset.copy || button.textContent.trim();
+
+            const markCopied = () => {
+                button.classList.add('copied');
+                button.setAttribute('title', 'Скопировано');
+                window.setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.removeAttribute('title');
+                }, 1400);
+            };
+
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(phone);
+                } else {
+                    const input = document.createElement('textarea');
+                    input.value = phone;
+                    input.setAttribute('readonly', '');
+                    input.style.position = 'fixed';
+                    input.style.opacity = '0';
+                    document.body.appendChild(input);
+                    input.select();
+                    document.execCommand('copy');
+                    input.remove();
+                }
+
+                markCopied();
+            } catch (error) {
+                button.setAttribute('title', phone);
+            }
+        });
+    });
+
     const animateElements = document.querySelectorAll(
         '.hero h1, .hero p, .contact-info p, .service-card, .benefit-item, .section-title, .section-subtitle, .trust-item, .market-card, .scope-item, .process-step, .project-card, .faq-item, .contact-card, .cta-banner, .hero-panel-card, .hero-badge'
     );

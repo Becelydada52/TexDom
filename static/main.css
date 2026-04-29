@@ -145,6 +145,66 @@ nav {
 
 .nav-links a:hover { color: #60a5fa; text-shadow: 0 0 10px rgba(96,165,250,0.35); }
 
+.phone-copy {
+    appearance: none;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: copy;
+    text-decoration: none;
+}
+
+.phone-copy:hover,
+.phone-copy:focus-visible {
+    color: #60a5fa;
+}
+
+.phone-copy.copied {
+    color: #34d399;
+}
+
+.messenger-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.messenger-icon {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.45rem;
+    line-height: 1;
+}
+
+.messenger-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    display: block;
+    fill: currentColor;
+}
+
+.messenger-telegram {
+    color: #229ed9;
+}
+
+.messenger-max {
+    color: #005ff9;
+}
+
+.messenger-whatsapp {
+    color: #25d366;
+}
+
+.nav-messengers {
+    gap: 0.45rem;
+}
+
 .menu-btn {
     display: none;
     flex-direction: column;
@@ -1512,4 +1572,8 @@ nav {
     .footer-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.footer-messengers {
+    margin-top: 0.85rem;
 }
