@@ -14,9 +14,19 @@ from app.web.catalog import SERVICES_CATALOG
 def test_pages_routes_are_available() -> None:
     asyncio.run(init_models())
     with TestClient(app=app) as client:
-        for path in ["/", "/Price", "/price", "/price1", "/price2", "/price3", "/obrsvaz"]:
+        for path in ["/", "/Price", "/price", "/price1", "/price2", "/price3", "/obrsvaz", "/privacy"]:
             resp = client.get(path)
             assert resp.status_code == 200
+
+
+def test_privacy_page_contains_operator_details() -> None:
+    asyncio.run(init_models())
+    with TestClient(app=app) as client:
+        resp = client.get("/privacy")
+        assert "СЕРВИС ИНЖЕНЕРНЫХ СИСТЕМ" in resp.text
+        assert "7627059630" in resp.text
+        assert "1247600001846" in resp.text
+        assert "panasenkovs@gmail.com" in resp.text
 
 
 def test_service_detail_routes() -> None:
@@ -63,6 +73,7 @@ def test_feedback_success() -> None:
         "email": "ivan@example.com",
         "subject": "Тест",
         "message": "Проверка",
+        "personal_data_consent": "on",
     }
     with TestClient(app=app) as client:
         resp = client.post("/feedback", json=payload)
@@ -86,6 +97,7 @@ def test_feedback_requires_name() -> None:
         "email": "ivan@example.com",
         "subject": "test",
         "message": "message",
+        "personal_data_consent": "on",
     }
     with TestClient(app=app) as client:
         resp = client.post("/feedback", json=payload)
@@ -99,6 +111,22 @@ def test_feedback_rejects_invalid_phone() -> None:
     payload = {
         "name": "Ivan",
         "telephone": "123",
+        "email": "ivan@example.com",
+        "subject": "test",
+        "message": "message",
+        "personal_data_consent": "on",
+    }
+    with TestClient(app=app) as client:
+        resp = client.post("/feedback", json=payload)
+        assert resp.status_code == 400
+        assert resp.json()["status"] == "error"
+
+
+def test_feedback_requires_personal_data_consent() -> None:
+    asyncio.run(init_models())
+    payload = {
+        "name": "Ivan",
+        "telephone": "+79991234567",
         "email": "ivan@example.com",
         "subject": "test",
         "message": "message",

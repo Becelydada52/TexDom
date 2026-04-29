@@ -734,6 +734,15 @@ body, body p, body li, body h1, body h2, body h3, body h4 { color: #ffffff; }
 .form-field input::placeholder, .form-field textarea::placeholder { color: rgba(255, 255, 255, 0.6); }
 .form-field input:focus, .form-field textarea:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
 .form-status { margin-top: 8px; color: #8a9db1; min-height: 1.2em; }
+.consent-field { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 14px; color: rgba(245,245,244,0.9); font-size: 0.92rem; line-height: 1.45; }
+.consent-field input { width: 18px; height: 18px; margin-top: 2px; accent-color: #2563eb; flex: 0 0 auto; }
+.consent-field a, .footer-card a, .privacy-page a { color: #93c5fd; }
+.policy-content { display: grid; gap: 1.5rem; max-width: 980px; margin: 0 auto; }
+.policy-content article { background: rgba(9, 26, 46, 0.74); border: 1px solid rgba(226,232,240,0.12); border-radius: 18px; padding: 1.25rem; }
+.policy-content h2 { margin: 0 0 0.75rem; color: #ffffff; }
+.policy-content p, .policy-content li { color: rgba(245,245,244,0.88); line-height: 1.65; }
+.policy-content ul { margin: 0; padding-left: 1.25rem; }
+.policy-meta { display: grid; gap: 0.5rem; margin-top: 1rem; color: rgba(245,245,244,0.86); }
 @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
 
 /* Benefits */
@@ -1083,6 +1092,8 @@ p, li { font-size: clamp(0.95rem, 1.8vw, 1.05rem); line-height: 1.7; }
 .theme-light .form-field input, .theme-light .form-field textarea { color: #000000; }
 .theme-light .form-field input::placeholder,
 .theme-light .form-field textarea::placeholder { color: #000000; }
+.theme-light .consent-field { color: #000000; }
+.theme-light .consent-field a, .theme-light .footer-card a, body.theme-light.privacy-page a { color: #1d4ed8; }
 .theme-light footer { background: rgba(255,255,255,0.6); color: #000000; }
 .theme-light .contact-info h4, .theme-light .contact-info i { color: #000000; }
 .theme-light .footer-brand,

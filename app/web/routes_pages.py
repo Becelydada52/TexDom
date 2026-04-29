@@ -46,6 +46,11 @@ async def obrsvaz_page(request: Request) -> Response[str]:
     return renderer.render("obrsvaz.html", request)
 
 
+@get("/privacy", name="privacy")
+async def privacy_page(request: Request) -> Response[str]:
+    return renderer.render("privacy.html", request)
+
+
 @get("/services/{slug:str}", name="service_detail")
 async def service_detail_page(request: Request, slug: str) -> Response[str]:
     service = SERVICES_CATALOG.get(slug)
@@ -73,6 +78,7 @@ route_handlers = [
     price2_page,
     price3_page,
     obrsvaz_page,
+    privacy_page,
     service_detail_page,
     static_compat,
 ]

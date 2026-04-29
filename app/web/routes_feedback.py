@@ -52,6 +52,14 @@ async def handle_feedback(request: Request) -> Response[str]:
                 {"status": "error", "message": "Неверный формат телефона. Используйте +7 или 8 и 10 цифр"},
                 status_code=400,
             )
+        consent = payload_data.get("personal_data_consent")
+        consent_given = consent is True or str(consent).strip().lower() in {"1", "true", "on", "yes"}
+        if not consent_given:
+            return _json_response(
+                {"status": "error", "message": "Необходимо согласие на обработку персональных данных"},
+                status_code=400,
+            )
+
         payload_data["name"] = name
         payload_data["telephone"] = phone
 

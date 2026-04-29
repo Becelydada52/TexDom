@@ -38,6 +38,7 @@ class TemplateRenderer:
             "price2": "/price2",
             "price3": "/price3",
             "obrsvaz": "/obrsvaz",
+            "privacy": "/privacy",
         }
         if route_name == "service_detail":
             slug = params.get("slug")

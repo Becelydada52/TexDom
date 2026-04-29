@@ -468,6 +468,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            if (!feedbackForm.elements.personal_data_consent?.checked) {
+                status.textContent = 'Необходимо согласие на обработку персональных данных';
+                status.style.color = '#b91c1c';
+                return;
+            }
+
             payload.telephone = tel;
 
             try {
