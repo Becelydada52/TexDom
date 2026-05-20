@@ -17,7 +17,10 @@
                     <span class="logo-img" aria-hidden="true">
                         <img src="{{ url_for('static', filename='img/logo/miniintexdom.png') }}" alt="ИнТехДом" />
                     </span>
-                    <span class="logo-text">IntexDom</span>
+                    <span class="logo-text">
+                        <span class="logo-text--part logo-text--part--orange">ИнТех</span>
+                        <span class="logo-text--part logo-text--part--blue">Дом</span>
+                    </span>
                 </a>
             </div>
             <button class="theme-toggle" aria-label="Переключить тему" title="Переключить тему">
@@ -69,20 +72,16 @@
                     <p class="section-subtitle">Каждая карточка ведет на отдельную страницу с описанием, фото и формой заявки.</p>
                 </div>
                 <div class="cards service-cards-grid">
-                    <a class="card service-card has-photo" href="{{ url_for('service_detail', slug='electric') }}" aria-label="Подробнее про электрику">
-                        <span class="service-card-image">
-                            <img src="{{ url_for('static', filename='img/electric/elec3.jpg') }}" alt="Электрический щит" loading="lazy" />
-                        </span>
+                    <a class="card service-card" href="{{ url_for('service_detail', slug='electric') }}" aria-label="Подробнее про электрику">
+
                         <span class="icon-wrap electric"><i class="fas fa-bolt"></i></span>
                         <h3>Электрика</h3>
                         <p>Щиты, разводка, освещение, автоматика, защита линий и запуск системы.</p>
                         <span class="service-card-link">Подробнее</span>
                     </a>
 
-                    <a class="card service-card has-photo" href="{{ url_for('service_detail', slug='water') }}" aria-label="Подробнее про отопление, водоснабжение и водоотведение">
-                        <span class="service-card-image">
-                            <img src="{{ url_for('static', filename='img/otopl/otop1.jpg') }}" alt="Узел водоснабжения и отопления" loading="lazy" />
-                        </span>
+                    <a class="card service-card" href="{{ url_for('service_detail', slug='water') }}" aria-label="Подробнее про отопление, водоснабжение и водоотведение">
+
                         <span class="icon-wrap water"><i class="fas fa-faucet"></i></span>
                         <h3>Отопление, водоснабжение и водоотведение</h3>
                         <p>Внутренние сети, разводка, узлы подключения, коллекторы и подготовка к эксплуатации.</p>

@@ -154,7 +154,18 @@ nav {
 
 .logo-text {
     font-size: 1.3rem;
-    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    font-weight: 800;
+}
+
+.logo-text--part--orange {
+    color: #1688b8;
+}
+
+.logo-text--part--blue {
+    color: #f36f21;
 }
 
 .nav-links {
