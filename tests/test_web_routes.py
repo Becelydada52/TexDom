@@ -8,7 +8,23 @@ from litestar.testing import TestClient
 from app.container import settings
 from app.db.session import init_models
 from app.web.app import app
-from app.web.catalog import SERVICES_CATALOG
+from app.web.routes_pages import VALID_SERVICE_SLUGS
+
+
+TEMPLATE_ASSET_PATHS = (
+    "img/electric/elec1.jpg",
+    "img/electric/elec2.jpg",
+    "img/electric/elec3.jpg",
+    "img/electric/elec4.jpg",
+    "img/electric/elec5.jpg",
+    "img/otopl/otop1.jpg",
+    "img/otopl/otop2.jpg",
+    "img/otopl/otop3.jpg",
+    "img/otopl/otop4.jpg",
+    "img/otopl/otop5.jpg",
+    "img/otopl/otop6.jpg",
+    "img/logo/miniintexdom.png",
+)
 
 
 def test_pages_routes_are_available() -> None:
@@ -32,9 +48,18 @@ def test_privacy_page_contains_operator_details() -> None:
 def test_service_detail_routes() -> None:
     asyncio.run(init_models())
     with TestClient(app=app) as client:
-        for slug in SERVICES_CATALOG:
+        for slug in VALID_SERVICE_SLUGS:
             assert client.get(f"/services/{slug}").status_code == 200
         assert client.get("/services/unknown").status_code == 404
+
+
+def test_service_detail_renders_template_content() -> None:
+    asyncio.run(init_models())
+    with TestClient(app=app) as client:
+        electric_response = client.get("/services/electric")
+        assert "Электрика" in electric_response.text
+        assert "Сборка распределительного щита" in electric_response.text
+        assert "app.web.catalog" not in electric_response.text
 
 
 def test_assets_route_and_static_redirect() -> None:
@@ -48,19 +73,14 @@ def test_assets_route_and_static_redirect() -> None:
         assert redirect_response.headers["location"] == "/assets/main.css"
 
 
-def test_service_catalog_assets_exist() -> None:
+def test_template_assets_exist() -> None:
     static_dir = settings.static_dir.resolve()
     missing_assets: list[str] = []
 
-    for service in SERVICES_CATALOG.values():
-        for album in service.get("albums", []):
-            for item in album.get("items", []):
-                src = item.get("src")
-                if not isinstance(src, str) or not src.startswith("/assets/"):
-                    continue
-                asset_path = static_dir / Path(src.removeprefix("/assets/"))
-                if not asset_path.exists():
-                    missing_assets.append(src)
+    for src in TEMPLATE_ASSET_PATHS:
+        asset_path = static_dir / Path(src)
+        if not asset_path.exists():
+            missing_assets.append(src)
 
     assert missing_assets == []
 

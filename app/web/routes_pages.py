@@ -4,11 +4,21 @@ from litestar import Request, get
 from litestar.response import Response
 
 from app.container import settings
-from app.web.catalog import SERVICES_CATALOG
 from app.web.templates import TemplateRenderer
 
 
 renderer = TemplateRenderer(settings.templates_dir)
+
+VALID_SERVICE_SLUGS = frozenset(
+    {
+        "electric",
+        "water",
+        "vent",
+        "drenaj",
+        "septiki",
+        "excavator",
+    }
+)
 
 
 @get("/", name="main")
@@ -53,10 +63,8 @@ async def privacy_page(request: Request) -> Response[str]:
 
 @get("/services/{slug:str}", name="service_detail")
 async def service_detail_page(request: Request, slug: str) -> Response[str]:
-    service = SERVICES_CATALOG.get(slug)
-    if service is None:
-        return renderer.render("service_detail.html", request, {"service": None}, status_code=404)
-    return renderer.render("service_detail.html", request, {"service": service})
+    status_code = 200 if slug in VALID_SERVICE_SLUGS else 404
+    return renderer.render("service_detail.html", request, {"slug": slug}, status_code=status_code)
 
 
 @get("/static/{filename:path}", name="static")

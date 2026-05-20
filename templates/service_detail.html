@@ -1,14 +1,138 @@
+{% set services = {
+    "electric": {
+        "title": "Электрика",
+        "lead": "Щиты, разводка, освещение и автоматика для частных и коммерческих объектов.",
+        "description": "Выполняем комплексные работы по электрике: силовые и слаботочные сети, сборка щитов, прокладка кабеля, освещение, настройка автоматики и ввод системы в работу.",
+        "hero_image": "/assets/img/electric/elec2.jpg",
+        "card_image": "/assets/img/electric/elec3.jpg",
+        "has_photo": true,
+        "icon": "fas fa-bolt",
+        "accent": "electric",
+        "features": [
+            "Проектирование по ПУЭ и подбор защитной автоматики",
+            "Сборка щитов, прокладка кабеля и маркировка линий",
+            "Освещение, розеточные группы и управление нагрузками",
+            "Проверка, документация и подготовка к приемке",
+        ],
+        "facts": ["Щиты", "Разводка", "Автоматика"],
+        "gallery": [
+            {"src": "/assets/img/electric/elec1.jpg", "caption": "Сборка распределительного щита"},
+            {"src": "/assets/img/electric/elec2.jpg", "caption": "Монтаж электрики на объекте"},
+            {"src": "/assets/img/electric/elec3.jpg", "caption": "Готовый электрический щит"},
+            {"src": "/assets/img/electric/elec4.jpg", "caption": "Работы по электромонтажу"},
+            {"src": "/assets/img/electric/elec5.jpg", "caption": "Инженерная разводка"},
+        ],
+    },
+    "water": {
+        "title": "Отопление, водоснабжение, водоотведение",
+        "lead": "Проектирование и монтаж систем отопления, водоснабжения и канализации.",
+        "description": "Разрабатываем и устанавливаем инженерные решения для частных и коммерческих объектов с учетом режима эксплуатации, состава оборудования и удобства последующего обслуживания.",
+        "hero_image": "/assets/img/otopl/otop1.jpg",
+        "card_image": "/assets/img/otopl/otop1.jpg",
+        "has_photo": true,
+        "icon": "fas fa-faucet",
+        "accent": "water",
+        "features": [
+            "Проект и смета под ваш объект",
+            "Разводка труб, коллекторные узлы и подключение оборудования",
+            "Монтаж по стандартам и нормам",
+            "Пусконаладка, проверка и гарантия",
+        ],
+        "facts": ["Разводка", "Узлы", "Сервис"],
+        "gallery": [
+            {"src": "/assets/img/otopl/otop1.jpg", "caption": "Коллекторный узел и оборудование"},
+            {"src": "/assets/img/otopl/otop2.jpg", "caption": "Разводка инженерных сетей"},
+            {"src": "/assets/img/otopl/otop3.jpg", "caption": "Монтаж отопления"},
+            {"src": "/assets/img/otopl/otop4.jpg", "caption": "Подключение оборудования"},
+            {"src": "/assets/img/otopl/otop5.jpg", "caption": "Техническое помещение"},
+            {"src": "/assets/img/otopl/otop6.jpg", "caption": "Водоподготовка и фильтрация"},
+        ],
+    },
+    "vent": {
+        "title": "Вентиляция и кондиционирование",
+        "lead": "Подбор, монтаж и обслуживание систем воздухообмена и климатического оборудования.",
+        "description": "Проектируем и монтируем вентиляционные системы с расчетом производительности, подбором оборудования, балансировкой и дальнейшим сервисом.",
+        "hero_image": "/assets/img/otopl/otop5.jpg",
+        "card_image": "/assets/img/otopl/otop5.jpg",
+        "has_photo": false,
+        "icon": "fas fa-wind",
+        "accent": "vent",
+        "features": [
+            "Расчет производительности и подбор оборудования",
+            "Монтаж воздуховодов, узлов и климатических блоков",
+            "Балансировка, шумопонижение и проверка режимов",
+            "Паспортизация и сервисное обслуживание",
+        ],
+        "facts": ["Расчет", "Подбор", "Балансировка"],
+        "gallery": [],
+    },
+    "drenaj": {
+        "title": "Дренажные системы",
+        "lead": "Решения для отвода воды, защиты участка и стабильной работы инженерной инфраструктуры.",
+        "description": "Проектируем и монтируем дренажные системы для отвода лишней воды, повышения надежности инженерной инфраструктуры и стабильной эксплуатации участка.",
+        "hero_image": "/assets/img/otopl/otop2.jpg",
+        "card_image": "/assets/img/otopl/otop2.jpg",
+        "has_photo": false,
+        "icon": "fas fa-layer-group",
+        "accent": "drain",
+        "features": [
+            "Оценка участка и подбор схемы дренажа",
+            "Подготовка траншей и монтаж системы",
+            "Интеграция с существующими инженерными решениями",
+            "Диагностика и обслуживание действующего дренажа",
+        ],
+        "facts": ["Отвод воды", "Защита участка", "Обслуживание"],
+        "gallery": [],
+    },
+    "septiki": {
+        "title": "Установка септиков",
+        "lead": "Подбор, монтаж и подключение систем локальной канализации.",
+        "description": "Помогаем подобрать и смонтировать септик под формат объекта, объем стоков и условия участка, с учетом подготовки основания и корректного подключения.",
+        "hero_image": "/assets/img/otopl/otop6.jpg",
+        "card_image": "/assets/img/otopl/otop6.jpg",
+        "has_photo": false,
+        "icon": "fas fa-water",
+        "accent": "septic",
+        "features": [
+            "Подбор решения под объект и режим эксплуатации",
+            "Подготовка участка и монтаж системы",
+            "Подключение, проверка работы и запуск",
+            "Консультация по эксплуатации и обслуживанию",
+        ],
+        "facts": ["Подбор", "Монтаж", "Запуск"],
+        "gallery": [],
+    },
+    "excavator": {
+        "title": "Услуги мини-экскаватора",
+        "lead": "Траншеи, подготовка под инженерные сети и земляные работы перед монтажом.",
+        "description": "Выполняем аккуратные земляные работы для прокладки инженерных систем, подготовки площадки, подведения коммуникаций и монтажа сопутствующих узлов.",
+        "hero_image": "/assets/img/electric/elec2.jpg",
+        "card_image": "/assets/img/electric/elec2.jpg",
+        "has_photo": false,
+        "icon": "fas fa-truck-monster",
+        "accent": "excavator",
+        "features": [
+            "Копка траншей под инженерные сети",
+            "Подготовка площадки под монтаж оборудования",
+            "Работы под септики и дренажные системы",
+            "Выезд на частные и коммерческие объекты",
+        ],
+        "facts": ["Траншеи", "Подготовка", "Выезд"],
+        "gallery": [],
+    },
+} %}
+{% set service = services.get(slug) %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if service %}{{ service.title }} — ИнТехДом{% else %}Услуга не найдена — ИнТехДом{% endif %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260429">
-    <script src="{{ url_for('static', filename='main.js') }}?v=20260429" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260520">
+    <script src="{{ url_for('static', filename='main.js') }}?v=20260520" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<body>
+<body class="page-service">
     <header class="site-header">
         <nav>
             <div class="logo">
@@ -16,7 +140,7 @@
                     <span class="logo-img" aria-hidden="true">
                         <img src="{{ url_for('static', filename='img/logo/miniintexdom.png') }}" alt="ИнТехДом" />
                     </span>
-                    <span class="logo-text">ИнТехДом</span>
+                    <span class="logo-text">IntexDom</span>
                 </a>
             </div>
             <button class="theme-toggle" aria-label="Переключить тему" title="Переключить тему">
@@ -31,45 +155,81 @@
                 <li><a href="{{ url_for('main') }}#services">Услуги</a></li>
                 <li><a href="{{ url_for('price') }}">Цены</a></li>
                 <li><a href="{{ url_for('main') }}#contact">Контакты</a></li>
+                <li><button class="phone-copy" type="button" data-copy="+79080381299" aria-label="Скопировать телефон">+7 (908) 038-12-99</button></li>
+                <li><a class="nav-action" href="{{ url_for('obrsvaz') }}">Обратный звонок</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="section">
-        <div class="container">
-            <nav aria-label="Хлебные крошки" class="breadcrumbs" style="margin-bottom: 1rem;">
-                <a class="btn ghost" href="{{ url_for('main') }}#services">← Назад к услугам</a>
-            </nav>
+    <main class="site-frame">
+        <nav aria-label="Хлебные крошки" class="breadcrumbs">
+            <a class="btn ghost" href="{{ url_for('main') }}#services">← Назад к услугам</a>
+        </nav>
 
-            {% if not service %}
-                <h1 class="section-title">Услуга не найдена</h1>
-                <p class="section-subtitle">Запрошенная услуга недоступна или была переименована.</p>
-            {% else %}
-                <div class="main-content" style="margin: 0;">
-                    <div class="hero-grid" aria-hidden="true"></div>
+        {% if not service %}
+            <section class="section not-found-panel">
+                <div class="container">
+                    <span class="section-kicker">404</span>
+                    <h1 class="section-title">Услуга не найдена</h1>
+                    <p class="section-subtitle">Запрошенная услуга недоступна или была переименована.</p>
+                    <a class="btn primary" href="{{ url_for('main') }}#services">Выбрать услугу</a>
+                </div>
+            </section>
+        {% else %}
+            <section class="service-hero">
+                <div class="service-hero-copy">
+                    <span class="service-eyebrow"><i class="{{ service.icon }}"></i> {{ service.title }}</span>
                     <h1>{{ service.title }}</h1>
                     <p>{{ service.lead }}</p>
-                    <div class="hero-cta" style="margin-bottom: 1rem;">
-                        <a class="btn ghost" href="{{ url_for('main') }}#contact">Связаться</a>
+                    <div class="service-facts" aria-label="Ключевые работы">
+                        {% for fact in service.facts %}
+                        <span>{{ fact }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="hero-cta">
+                        <a class="btn primary" href="#feedback-form">Оставить заявку</a>
+                        <a class="btn ghost" href="#service-gallery-section">Посмотреть фото</a>
                     </div>
                 </div>
+                <div class="service-hero-media{% if not service.has_photo %} service-hero-placeholder{% endif %}">
+                    {% if service.has_photo %}
+                    <img src="{{ service.hero_image }}" alt="{{ service.title }}" loading="eager" />
+                    {% else %}
+                    <div class="placeholder-mark">
+                        <i class="{{ service.icon }}" aria-hidden="true"></i>
+                        <span>{{ service.title }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
 
-                <div class="section" style="padding-top: 1.5rem;">
-                    <div class="container" style="max-width: 1000px;">
-                        <h2 class="section-title" style="text-align: left;">Описание</h2>
+            <section class="section">
+                <div class="container service-content-grid">
+                    <article class="content-panel">
+                        <span class="section-kicker">Описание</span>
+                        <h2>Что делаем</h2>
                         <p class="service-description-text">{{ service.description }}</p>
+                    </article>
 
-                        {% if service.features %}
-                        <h3 class="section-subtitle" style="text-align: left; margin-top: 1rem;">Что входит</h3>
+                    <article class="content-panel">
+                        <span class="section-kicker">Состав работ</span>
+                        <h2>Что входит</h2>
                         <ul class="service-feature-list">
                             {% for feature in service.features %}
                             <li>{{ feature }}</li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
+                    </article>
+                </div>
+            </section>
 
-                        <h3 class="section-subtitle" style="text-align: left; margin-top: 1.25rem;">Фото</h3>
-                        {% if service.albums %}
+            <section id="service-gallery-section" class="section muted-section">
+                <div class="container">
+                    <div class="section-heading align-left">
+                        <span class="section-kicker">Фото</span>
+                        <h2 class="section-title">Рабочие кадры по направлению</h2>
+                    </div>
+                    {% if service.gallery %}
                         <div class="gallery-actions">
                             <button type="button" class="btn ghost gallery-toggle" data-gallery-toggle aria-expanded="false" aria-controls="service-gallery">
                                 Посмотреть фото
@@ -77,76 +237,88 @@
                         </div>
                         <div id="service-gallery" class="service-gallery" hidden>
                             <div class="gallery-grid">
-                                {% for album in service.albums %}
-                                    {% for item in album["items"] %}
-                                    <a href="{{ item.src }}" class="gallery-item" data-caption="{{ item.caption or '' }}" aria-label="Открыть фото">
-                                        <img src="{{ item.src }}" alt="{{ item.caption or service.title }}" loading="lazy" />
-                                    </a>
-                                    {% endfor %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% elif service.images %}
-                        <div class="gallery-actions">
-                            <button type="button" class="btn ghost gallery-toggle" data-gallery-toggle aria-expanded="false" aria-controls="service-gallery">
-                                Посмотреть фото
-                            </button>
-                        </div>
-                        <div id="service-gallery" class="service-gallery" hidden>
-                            <div class="gallery-grid">
-                                {% for image in service.images %}
-                                <a href="{{ image }}" class="gallery-item" aria-label="Открыть фото {{ loop.index }}">
-                                    <img src="{{ image }}" alt="{{ service.title }} фото {{ loop.index }}" loading="lazy" />
+                                {% for image in service.gallery %}
+                                <a href="{{ image.src }}" class="gallery-item" data-caption="{{ image.caption }}" aria-label="Открыть фото {{ loop.index }}">
+                                    <img src="{{ image.src }}" alt="{{ image.caption or service.title }}" loading="lazy" />
                                 </a>
                                 {% endfor %}
                             </div>
                         </div>
-                        {% else %}
-                        <div class="card" style="height: 160px; border-radius: 14px; background: #eef4ff; display: grid; place-items: center; color: #2563eb;">
-                            Фото для этой услуги пока не добавлены
+                    {% else %}
+                        <div class="empty-gallery">
+                            <i class="{{ service.icon }}" aria-hidden="true"></i>
+                            <p>Фотографии по этому направлению пока не добавлены, чтобы не показывать неподходящие работы.</p>
                         </div>
-                        {% endif %}
+                    {% endif %}
+                </div>
+            </section>
 
-                        <h3 class="section-subtitle" style="text-align: left; margin-top: 1.25rem;">Оставить заявку</h3>
-                        <form id="feedback-form" class="feedback-form" novalidate>
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label for="name">Имя</label>
-                                    <input type="text" id="name" name="name" placeholder="Ваше имя" required />
-                                </div>
-                                <div class="form-field">
-                                    <label for="telephone">Телефон</label>
-                                    <input type="tel" id="telephone" name="telephone" placeholder="+7XXXXXXXXXX" required />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" placeholder="mail@example.com" />
-                                </div>
-                                <div class="form-field">
-                                    <label for="subject">Тема</label>
-                                    <input type="text" id="subject" name="subject" value="{{ service.title }}" />
-                                </div>
+            <section class="section">
+                <div class="container feedback-layout">
+                    <div class="feedback-copy">
+                        <span class="section-kicker">Заявка</span>
+                        <h2>Расскажите, что нужно сделать</h2>
+                        <p>Укажите объект, систему и удобный способ связи. Тема уже заполнена выбранной услугой.</p>
+                    </div>
+                    <form id="feedback-form" class="feedback-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="name">Имя</label>
+                                <input type="text" id="name" name="name" placeholder="Ваше имя" required />
                             </div>
                             <div class="form-field">
-                                <label for="message">Сообщение</label>
-                                <textarea id="message" name="message" rows="4" placeholder="Кратко опишите задачу"></textarea>
+                                <label for="telephone">Телефон</label>
+                                <input type="tel" id="telephone" name="telephone" placeholder="+7XXXXXXXXXX" required />
                             </div>
-                            <label class="consent-field">
-                                <input type="checkbox" name="personal_data_consent" required />
-                                <span>Я согласен(на) на обработку персональных данных и ознакомлен(а) с <a href="{{ url_for('privacy') }}">Политикой обработки персональных данных</a>.</span>
-                            </label>
-                            <button type="submit" class="btn primary" id="feedback-submit">Отправить</button>
-                            <p id="feedback-status" class="form-status" role="status" aria-live="polite"></p>
-                        </form>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="mail@example.com" />
+                            </div>
+                            <div class="form-field">
+                                <label for="subject">Тема</label>
+                                <input type="text" id="subject" name="subject" value="{{ service.title }}" />
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Кратко опишите задачу"></textarea>
+                        </div>
+                        <label class="consent-field">
+                            <input type="checkbox" name="personal_data_consent" required />
+                            <span>Я согласен(на) на обработку персональных данных и ознакомлен(а) с <a href="{{ url_for('privacy') }}">Политикой обработки персональных данных</a>.</span>
+                        </label>
+                        <button type="submit" class="btn primary" id="feedback-submit">Отправить</button>
+                        <p id="feedback-status" class="form-status" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+            </section>
+
+            <section class="section muted-section">
+                <div class="container">
+                    <div class="section-heading">
+                        <span class="section-kicker">Другие направления</span>
+                        <h2 class="section-title">Можно посмотреть соседние услуги</h2>
+                    </div>
+                    <div class="related-services">
+                        {% for other_slug, other in services.items() if other_slug != slug %}
+                        <a class="related-card" href="{{ url_for('service_detail', slug=other_slug) }}">
+                            {% if other.has_photo %}
+                            <img src="{{ other.card_image }}" alt="{{ other.title }}" loading="lazy" />
+                            {% else %}
+                            <span class="related-card-icon"><i class="{{ other.icon }}" aria-hidden="true"></i></span>
+                            {% endif %}
+                            <span>{{ other.title }}</span>
+                        </a>
+                        {% endfor %}
                     </div>
                 </div>
-            {% endif %}
-        </div>
-    </section>
+            </section>
+        {% endif %}
+    </main>
 
-    <footer>
+    <footer class="site-footer">
         <div class="footer-content footer-grid" id="contact">
             <div class="footer-brand">
                 <h4>ИнТехДом</h4>
@@ -157,11 +329,6 @@
                 <h4>Контакты</h4>
                 <p><i class="fas fa-phone"></i><span>Телефон: <button class="phone-copy" type="button" data-copy="+79080381299" aria-label="Скопировать телефон">+7 (908) 038-12-99</button></span></p>
                 <p><i class="fas fa-shield-alt"></i><span><a href="{{ url_for('privacy') }}">Политика обработки персональных данных</a></span></p>
-                <div class="messenger-links footer-messengers" aria-label="Messengers">
-                    <span class="messenger-icon messenger-telegram" aria-label="Telegram" title="Telegram"><i class="fab fa-telegram-plane"></i></span>
-                    <span class="messenger-icon messenger-max" aria-label="MAX" title="MAX"><svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><path d="M50.76 0c27.53 0 49.12 22.34 49.12 49.89S77.61 99.23 51.02 99.23c-9.43 0-14.01-1.33-21.37-6.54-.5-.36-1.2-.26-1.63.19-5.66 6.04-20.17 10.28-20.83 2.03C7.19 80.53 0 71.18 0 49.61 0 21.3 23.22 0 50.76 0m.77 24.55c-13.07-.68-23.26 8.39-25.51 22.58-1.86 11.75 1.44 26.07 4.26 26.8 1.2.3 4.08-1.9 6.18-3.88.4-.37.99-.44 1.45-.15 3.27 2 6.97 3.5 11.05 3.71 13.42.7 25.3-9.8 26-23.21.71-13.42-10.01-25.14-23.43-25.85"/></svg></span>
-                    <span class="messenger-icon messenger-whatsapp" aria-label="WhatsApp" title="WhatsApp"><i class="fab fa-whatsapp"></i></span>
-                </div>
             </div>
         </div>
     </footer>

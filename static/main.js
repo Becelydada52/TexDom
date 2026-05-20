@@ -32,6 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const siteHeader = document.querySelector('.site-header');
+    const syncHeaderTransparency = () => {
+        if (!siteHeader) {
+            return;
+        }
+
+        siteHeader.classList.toggle('is-scrolled', window.scrollY > 12);
+    };
+
+    syncHeaderTransparency();
+    window.addEventListener('scroll', syncHeaderTransparency, { passive: true });
+
     const menuBtn = document.querySelector('.menu-btn');
     const navLinks = document.querySelector('.nav-links');
 
