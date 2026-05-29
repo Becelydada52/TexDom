@@ -17,12 +17,15 @@ TEMPLATE_ASSET_PATHS = (
     "img/electric/elec3.jpg",
     "img/electric/elec4.jpg",
     "img/electric/elec5.jpg",
-    "img/otopl/otop1.jpg",
-    "img/otopl/otop2.jpg",
-    "img/otopl/otop3.jpg",
-    "img/otopl/otop4.jpg",
-    "img/otopl/otop5.jpg",
-    "img/otopl/otop6.jpg",
+    "img/electric/elec7.jpg",
+    "img/electric/elec8.jpg",
+    "img/otopl/otopl1.jpg",
+    "img/otopl/otopl2.jpg",
+    "img/otopl/otopl3.jpg",
+    "img/otopl/otopl5.jpg",
+    "img/otopl/otopl6.jpg",
+    "img/otopl/otopl7.jpg",
+    "img/otopl/otopl8.jpg",
     "img/logo/miniintexdom.png",
 )
 
@@ -58,7 +61,7 @@ def test_service_detail_renders_template_content() -> None:
     with TestClient(app=app) as client:
         electric_response = client.get("/services/electric")
         assert "Электрика" in electric_response.text
-        assert "Сборка распределительного щита" in electric_response.text
+        assert "/assets/img/electric/elec8.jpg" in electric_response.text
         assert "app.web.catalog" not in electric_response.text
 
 
