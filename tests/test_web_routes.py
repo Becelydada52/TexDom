@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import re
 from pathlib import Path
 
 from litestar.testing import TestClient
@@ -33,9 +34,46 @@ TEMPLATE_ASSET_PATHS = (
 def test_pages_routes_are_available() -> None:
     asyncio.run(init_models())
     with TestClient(app=app) as client:
-        for path in ["/", "/Price", "/price", "/price1", "/price2", "/price3", "/obrsvaz", "/privacy"]:
+        for path in ["/", "/obrsvaz", "/privacy"]:
             resp = client.get(path)
             assert resp.status_code == 200
+
+
+def test_price_routes_are_removed() -> None:
+    asyncio.run(init_models())
+    with TestClient(app=app) as client:
+        for path in ["/price", "/Price", "/price1", "/price2", "/price3"]:
+            assert client.get(path).status_code != 200
+
+
+def test_robots_and_sitemap_routes() -> None:
+    asyncio.run(init_models())
+    with TestClient(app=app) as client:
+        robots_response = client.get("/robots.txt")
+        assert robots_response.status_code == 200
+        assert "Sitemap: https://intexdom.ru/sitemap.xml" in robots_response.text
+
+        sitemap_response = client.get("/sitemap.xml")
+        assert sitemap_response.status_code == 200
+        assert "<loc>https://intexdom.ru/</loc>" in sitemap_response.text
+        assert "<loc>https://intexdom.ru/privacy</loc>" in sitemap_response.text
+        for slug in VALID_SERVICE_SLUGS:
+            assert f"<loc>https://intexdom.ru/services/{slug}</loc>" in sitemap_response.text
+
+
+def test_main_page_has_seo_metadata() -> None:
+    asyncio.run(init_models())
+    with TestClient(app=app) as client:
+        resp = client.get("/")
+        assert resp.status_code == 200
+        assert '<title>ИнТехДом — инженерные системы в Ярославле</title>' in resp.text
+        assert '<meta name="description"' in resp.text
+        assert '<link rel="canonical" href="https://intexdom.ru/">' in resp.text
+        assert '<meta property="og:title"' in resp.text
+        assert 'type="application/ld+json"' in resp.text
+        assert '"@type": "LocalBusiness"' in resp.text
+        assert "Комплексные инженерные системы для комфортной жизни" in resp.text
+        assert "кофортной" not in resp.text
 
 
 def test_privacy_page_contains_operator_details() -> None:
@@ -63,6 +101,29 @@ def test_service_detail_renders_template_content() -> None:
         assert "Электрика" in electric_response.text
         assert "/assets/img/electric/elec8.jpg" in electric_response.text
         assert "app.web.catalog" not in electric_response.text
+
+
+def test_service_pages_have_seo_metadata_and_no_price_links() -> None:
+    asyncio.run(init_models())
+    with TestClient(app=app) as client:
+        for slug in VALID_SERVICE_SLUGS:
+            resp = client.get(f"/services/{slug}")
+            assert resp.status_code == 200
+            assert "Ярославле" in resp.text
+            assert '<meta name="description"' in resp.text
+            assert f'<link rel="canonical" href="https://intexdom.ru/services/{slug}">' in resp.text
+            assert '<meta property="og:title"' in resp.text
+            assert '<meta property="og:description"' in resp.text
+            assert '<meta property="og:url"' in resp.text
+            assert "/price" not in resp.text
+
+            feature_section = re.search(
+                r'<ul class="service-feature-list">(.*?)</ul>',
+                resp.text,
+                flags=re.DOTALL,
+            )
+            assert feature_section is not None
+            assert feature_section.group(1).count("<li>") >= 5
 
 
 def test_assets_route_and_static_redirect() -> None:

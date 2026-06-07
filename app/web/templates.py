@@ -33,10 +33,6 @@ class TemplateRenderer:
     def url_for(route_name: str, **params: Any) -> str:
         routes: dict[str, str] = {
             "main": "/",
-            "price": "/price",
-            "price1": "/price1",
-            "price2": "/price2",
-            "price3": "/price3",
             "obrsvaz": "/obrsvaz",
             "privacy": "/privacy",
         }

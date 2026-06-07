@@ -26,31 +26,6 @@ async def main_page(request: Request) -> Response[str]:
     return renderer.render("main.html", request)
 
 
-@get("/Price", name="price_upper")
-async def price_page_upper(request: Request) -> Response[str]:
-    return renderer.render("Price.html", request)
-
-
-@get("/price", name="price")
-async def price_page(request: Request) -> Response[str]:
-    return renderer.render("Price.html", request)
-
-
-@get("/price1", name="price1")
-async def price1_page(request: Request) -> Response[str]:
-    return renderer.render("price1.html", request)
-
-
-@get("/price2", name="price2")
-async def price2_page(request: Request) -> Response[str]:
-    return renderer.render("price2.html", request)
-
-
-@get("/price3", name="price3")
-async def price3_page(request: Request) -> Response[str]:
-    return renderer.render("price3.html", request)
-
-
 @get("/obrsvaz", name="obrsvaz")
 async def obrsvaz_page(request: Request) -> Response[str]:
     return renderer.render("obrsvaz.html", request)
@@ -59,6 +34,22 @@ async def obrsvaz_page(request: Request) -> Response[str]:
 @get("/privacy", name="privacy")
 async def privacy_page(request: Request) -> Response[str]:
     return renderer.render("privacy.html", request)
+
+
+@get("/robots.txt", name="robots")
+async def robots_txt() -> Response[str]:
+    return Response(
+        content=(settings.static_dir / "robots.txt").read_text(encoding="utf-8"),
+        media_type="text/plain; charset=utf-8",
+    )
+
+
+@get("/sitemap.xml", name="sitemap")
+async def sitemap_xml() -> Response[str]:
+    return Response(
+        content=(settings.static_dir / "sitemap.xml").read_text(encoding="utf-8"),
+        media_type="application/xml; charset=utf-8",
+    )
 
 
 @get("/services/{slug:str}", name="service_detail")
@@ -80,13 +71,10 @@ async def static_compat(filename: str) -> Response[str]:
 
 route_handlers = [
     main_page,
-    price_page_upper,
-    price_page,
-    price1_page,
-    price2_page,
-    price3_page,
     obrsvaz_page,
     privacy_page,
+    robots_txt,
+    sitemap_xml,
     service_detail_page,
     static_compat,
 ]
