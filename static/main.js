@@ -532,4 +532,75 @@ document.addEventListener('DOMContentLoaded', () => {
             img.src = placeholderSrc;
         });
     });
+
+    const messengerFab = document.getElementById('messengerFab');
+    const messengerFabMain = document.getElementById('messengerFabMain');
+
+    if (messengerFab && messengerFabMain) {
+        const messengerFabMenu = messengerFab.querySelector('.messenger-fab__menu');
+        const submenuMap = {
+            messengerFabTelegram: 'messengerFabTelegramMenu',
+            messengerFabWhatsapp: 'messengerFabWhatsappMenu',
+            messengerFabPhone: 'messengerFabPhoneMenu',
+        };
+
+        const closeMessengerSubmenus = () => {
+            Object.values(submenuMap).forEach((id) => {
+                document.getElementById(id)?.classList.remove('is-visible');
+            });
+
+            messengerFab.querySelectorAll('.messenger-fab__row').forEach((row) => {
+                row.classList.remove('is-submenu-open');
+            });
+
+            messengerFabMenu?.classList.remove('has-active-submenu');
+        };
+
+        const setMessengerFabOpen = (open) => {
+            messengerFab.classList.toggle('is-open', open);
+            messengerFabMain.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+            if (!open) {
+                closeMessengerSubmenus();
+            }
+        };
+
+        messengerFabMain.addEventListener('click', (event) => {
+            event.stopPropagation();
+            setMessengerFabOpen(!messengerFab.classList.contains('is-open'));
+        });
+
+        Object.entries(submenuMap).forEach(([buttonId, menuId]) => {
+            const button = document.getElementById(buttonId);
+            const menu = document.getElementById(menuId);
+
+            if (!button || !menu) {
+                return;
+            }
+
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const wasVisible = menu.classList.contains('is-visible');
+                closeMessengerSubmenus();
+
+                if (!wasVisible) {
+                    menu.classList.add('is-visible');
+                    button.closest('.messenger-fab__row')?.classList.add('is-submenu-open');
+                    messengerFabMenu?.classList.add('has-active-submenu');
+                }
+            });
+        });
+
+        messengerFab.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', () => setMessengerFabOpen(false));
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setMessengerFabOpen(false);
+            }
+        });
+    }
 });

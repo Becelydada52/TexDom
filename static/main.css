@@ -1432,3 +1432,215 @@ body.menu-open {
         padding: 22px;
     }
 }
+
+.phone-link {
+    color: inherit;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.phone-link:hover,
+.phone-link:focus-visible {
+    color: var(--accent);
+}
+
+.messenger-fab {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    z-index: 2100;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.messenger-fab__main,
+.messenger-fab__button {
+    border: 0;
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.messenger-fab__main {
+    width: 62px;
+    height: 62px;
+    background: linear-gradient(135deg, var(--accent), var(--blue));
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32), 0 0 0 8px rgba(243, 111, 33, 0.12);
+    font-size: 1.35rem;
+}
+
+.messenger-fab__main:hover,
+.messenger-fab__main:focus-visible {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.36), 0 0 0 10px rgba(243, 111, 33, 0.16);
+}
+
+.messenger-fab.is-open .messenger-fab__main i::before {
+    content: "\f00d";
+}
+
+.messenger-fab__menu {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(14px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.messenger-fab.is-open .messenger-fab__menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.messenger-fab__row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.messenger-fab__label {
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    background: var(--surface-strong);
+    box-shadow: var(--panel-shadow);
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+}
+
+.messenger-fab__menu.has-active-submenu .messenger-fab__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(8px);
+}
+
+.messenger-fab__button {
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+    font-size: 1.2rem;
+}
+
+.messenger-fab__button:hover,
+.messenger-fab__button:focus-visible {
+    transform: translateY(-2px) scale(1.06);
+}
+
+.messenger-fab__button--telegram {
+    background: #229ed9;
+}
+
+.messenger-fab__button--whatsapp {
+    background: #25d366;
+}
+
+.messenger-fab__button--max {
+    background: #ffffff;
+}
+
+.messenger-fab__button--phone {
+    background: var(--green);
+}
+
+.messenger-fab__max-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.messenger-fab__submenu {
+    position: absolute;
+    right: 62px;
+    bottom: 0;
+    display: none;
+    min-width: 255px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface-strong);
+    box-shadow: var(--shadow);
+}
+
+.messenger-fab__submenu.is-visible {
+    display: grid;
+    gap: 8px;
+}
+
+.messenger-fab__submenu-title {
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.messenger-fab__submenu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.messenger-fab__submenu a:hover,
+.messenger-fab__submenu a:focus-visible {
+    color: #ffffff;
+    background: var(--accent);
+}
+
+.messenger-fab__avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--blue);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+    .messenger-fab {
+        right: 16px;
+        bottom: 18px;
+    }
+
+    .messenger-fab__main {
+        width: 56px;
+        height: 56px;
+    }
+
+    .messenger-fab__label {
+        display: none;
+    }
+
+    .messenger-fab__submenu {
+        right: 58px;
+        min-width: min(255px, calc(100vw - 92px));
+    }
+}
