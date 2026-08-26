@@ -975,6 +975,15 @@ h4 {
     color: var(--accent-dark);
 }
 
+.hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+}
+
 .form-status {
     min-height: 1.4em;
     color: var(--ink-soft);

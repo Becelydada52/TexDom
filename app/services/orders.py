@@ -2,13 +2,17 @@ from __future__ import annotations
 
 import uuid
 from collections.abc import Callable
-from datetime import datetime
 
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models import Order
 from app.db.repositories import OrderRepository
 from app.schemas.feedback import FeedbackPayload
+from app.timeutil import utcnow
+
+
+ORDER_ID_ATTEMPTS = 3
 
 
 class OrderService:
@@ -16,8 +20,7 @@ class OrderService:
         self.session_factory = session_factory
 
     async def create_from_feedback(self, payload: FeedbackPayload, source: str = "web") -> Order:
-        async with self.session_factory() as session:
-            repo = OrderRepository(session)
+        for _ in range(ORDER_ID_ATTEMPTS):
             order = Order(
                 id=uuid.uuid4().hex[:12],
                 name=payload.name,
@@ -27,10 +30,16 @@ class OrderService:
                 message=payload.message,
                 status="new",
                 source=source,
-                created_at=datetime.now(),
-                updated_at=datetime.now(),
+                created_at=utcnow(),
+                updated_at=utcnow(),
             )
-            return await repo.create(order)
+            try:
+                async with self.session_factory() as session:
+                    repo = OrderRepository(session)
+                    return await repo.create(order)
+            except IntegrityError:
+                continue
+        raise RuntimeError("Failed to generate unique order id")
 
     async def list_recent_orders(self, limit: int = 10) -> list[Order]:
         async with self.session_factory() as session:

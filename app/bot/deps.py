@@ -14,7 +14,8 @@ async def ensure_message_role(
     allowed_roles: tuple[str, ...],
     denied_text: str = "🚫 Недостаточно прав.",
 ) -> str | None:
-    role = await user_service.get_role(message.chat.id)
+    user_id = message.from_user.id if message.from_user is not None else message.chat.id
+    role = await user_service.get_role(user_id)
     if role not in allowed_roles:
         await message.answer(denied_text)
         return None

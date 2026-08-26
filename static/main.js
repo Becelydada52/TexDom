@@ -168,40 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    window.addEventListener('load', () => {
-        document.body.style.opacity = '1';
-    });
-
-    const hero = document.querySelector('.hero');
-    const heroBg = document.querySelector('.hero-bg');
-    const heroGrid = document.querySelector('.hero-grid');
-
-    const parallax = (x = 0, y = 0) => {
-        if (!heroBg || !heroGrid) {
-            return;
-        }
-
-        const dx = (x - window.innerWidth / 2) / window.innerWidth;
-        const dy = (y - window.innerHeight / 2) / window.innerHeight;
-        heroBg.style.transform = `translate3d(${dx * 20}px, ${dy * 20}px, 0)`;
-        heroGrid.style.transform = `translate3d(${dx * -10}px, ${dy * -8}px, 0)`;
-    };
-
-    if (hero) {
-        hero.addEventListener('mousemove', (event) => parallax(event.clientX, event.clientY));
-        window.addEventListener('scroll', () => {
-            const scrolled = Math.min(window.scrollY, 200);
-            if (heroBg) {
-                heroBg.style.transform = `translateY(${scrolled * 0.08}px)`;
-            }
-            if (heroGrid) {
-                heroGrid.style.transform = `translateY(${scrolled * -0.04}px)`;
-            }
-        }, { passive: true });
-    }
-
     const galleryToggle = document.querySelector('[data-gallery-toggle]');
     const serviceGallery = document.getElementById('service-gallery');
     if (galleryToggle && serviceGallery) {
@@ -480,6 +446,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            const email = (payload.email || '').trim();
+            if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+                status.textContent = 'Некорректный email';
+                status.style.color = '#b91c1c';
+                return;
+            }
+
             if (!feedbackForm.elements.personal_data_consent?.checked) {
                 status.textContent = 'Необходимо согласие на обработку персональных данных';
                 status.style.color = '#b91c1c';
@@ -549,10 +522,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById(id)?.classList.remove('is-visible');
             });
 
-            messengerFab.querySelectorAll('.messenger-fab__row').forEach((row) => {
-                row.classList.remove('is-submenu-open');
-            });
-
             messengerFabMenu?.classList.remove('has-active-submenu');
         };
 
@@ -585,7 +554,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (!wasVisible) {
                     menu.classList.add('is-visible');
-                    button.closest('.messenger-fab__row')?.classList.add('is-submenu-open');
                     messengerFabMenu?.classList.add('has-active-submenu');
                 }
             });

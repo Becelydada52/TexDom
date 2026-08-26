@@ -48,10 +48,14 @@ async def run_webhook(bot: Bot, dispatcher: Dispatcher) -> None:
         await run_polling(bot, dispatcher)
         return
 
-    await bot.set_webhook(webhook_url, drop_pending_updates=True)
+    secret_token = settings.bot_webhook_secret or None
+    if secret_token is None:
+        logger.warning("BOT_WEBHOOK_SECRET is empty, webhook requests will not be authenticated")
+
+    await bot.set_webhook(webhook_url, drop_pending_updates=True, secret_token=secret_token)
 
     app = web.Application()
-    SimpleRequestHandler(dispatcher=dispatcher, bot=bot).register(app, path=path)
+    SimpleRequestHandler(dispatcher=dispatcher, bot=bot, secret_token=secret_token).register(app, path=path)
     setup_application(app, dispatcher, bot=bot)
 
     runner = web.AppRunner(app)

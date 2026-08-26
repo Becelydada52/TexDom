@@ -7,10 +7,12 @@ from aiogram import Bot
 from app.config import Settings
 from app.db.models import Order
 from app.services.users import UserService
+from app.timeutil import format_moscow
 
 
 logger = logging.getLogger(__name__)
 NOTIFICATION_ROLES = ("admin", "developer")
+TELEGRAM_MESSAGE_LIMIT = 4000
 
 
 def format_order_message(order: Order) -> str:
@@ -21,7 +23,7 @@ def format_order_message(order: Order) -> str:
         f"📧 Email: {order.email}\n"
         f"📌 Тема: {order.subject}\n"
         f"✉️ Сообщение:\n{order.message}\n\n"
-        f"⏱ Создано: {order.created_at:%Y-%m-%d %H:%M:%S}\n"
+        f"⏱ Создано: {format_moscow(order.created_at)}\n"
         f"Статус: {order.status}"
     )
 
@@ -49,7 +51,7 @@ class NotificationService:
         if not recipients:
             return
 
-        text = format_order_message(order)
+        text = format_order_message(order)[:TELEGRAM_MESSAGE_LIMIT]
         for chat_id in set(recipients):
             try:
                 await bot.send_message(chat_id=chat_id, text=text)

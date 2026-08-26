@@ -70,8 +70,8 @@
         "seo_description": "Проектирование и монтаж вентиляции и кондиционирования в Ярославле. Расчёт, подбор оборудования, монтаж воздуховодов, балансировка и обслуживание.",
         "lead": "Подбор, монтаж и обслуживание систем воздухообмена и климатического оборудования.",
         "description": "Проектируем и монтируем системы вентиляции и кондиционирования для жилых и коммерческих объектов в Ярославле. Расчёт воздухообмена, подбор оборудования, монтаж воздуховодов, балансировка и ввод в работу.",
-        "hero_image": "/assets/img/otopl/otop5.jpg",
-        "card_image": "/assets/img/otopl/otop5.jpg",
+        "hero_image": "",
+        "card_image": "",
         "has_photo": false,
         "icon": "fas fa-wind",
         "accent": "vent",
@@ -125,8 +125,8 @@
         "seo_description": "Подбор, монтаж и запуск септиков в Ярославле. Земляные работы, подключение, пусконаладка. Работаем с частными домами и загородными объектами.",
         "lead": "Подбор, монтаж и подключение систем локальной канализации.",
         "description": "Подбираем, монтируем и запускаем системы автономной канализации для частных домов и коттеджей в Ярославле и Ярославской области. Работаем с энергозависимыми и энергонезависимыми септиками.",
-        "hero_image": "/assets/img/otopl/otop6.jpg",
-        "card_image": "/assets/img/otopl/otop6.jpg",
+        "hero_image": "",
+        "card_image": "",
         "has_photo": false,
         "icon": "fas fa-water",
         "accent": "septic",
@@ -148,8 +148,8 @@
         "seo_description": "Земляные работы мини-экскаватором в Ярославле. Траншеи под инженерные сети, котлованы под септики, планировка. Работаем на стеснённых участках.",
         "lead": "Траншеи, подготовка под инженерные сети и земляные работы перед монтажом.",
         "description": "Выполняем земляные работы мини-экскаватором в Ярославле и области. Работаем на стеснённых участках, где не пройдёт полноразмерная техника. Удобно заказывать в комплексе с монтажом инженерных систем.",
-        "hero_image": "/assets/img/electric/elec2.jpg",
-        "card_image": "/assets/img/electric/elec2.jpg",
+        "hero_image": "",
+        "card_image": "",
         "has_photo": false,
         "icon": "fas fa-truck-monster",
         "accent": "excavator",
@@ -168,11 +168,13 @@
 {% set page_title = service.seo_title if service else "Услуга не найдена — ИнТехДом" %}
 {% set page_description = service.seo_description if service else "Запрошенная услуга недоступна или была переименована." %}
 {% set page_canonical = "https://intexdom.ru/services/" ~ slug %}
+{% set og_image = ("https://intexdom.ru" ~ service.card_image) if service and service.has_photo and service.card_image else "https://intexdom.ru/assets/img/logo/newintexdom.png" %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo/miniintexdom.png') }}">
     <title>{{ page_title }}</title>
     <meta name="description" content="{{ page_description }}">
     <link rel="canonical" href="{{ page_canonical }}">
@@ -181,9 +183,10 @@
     <meta property="og:url" content="{{ page_canonical }}">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ИнТехДом">
+    <meta property="og:image" content="{{ og_image }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260520">
     <script src="{{ url_for('static', filename='main.js') }}?v=20260520" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body class="page-service">
     <header class="site-header">
@@ -319,26 +322,30 @@
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="name">Имя</label>
-                                <input type="text" id="name" name="name" placeholder="Ваше имя" required />
+                                <input type="text" id="name" name="name" placeholder="Ваше имя" required maxlength="200" />
                             </div>
                             <div class="form-field">
                                 <label for="telephone">Телефон</label>
-                                <input type="tel" id="telephone" name="telephone" placeholder="+7XXXXXXXXXX" required />
+                                <input type="tel" id="telephone" name="telephone" placeholder="+7XXXXXXXXXX" required maxlength="20" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="mail@example.com" />
+                                <input type="email" id="email" name="email" placeholder="mail@example.com" maxlength="254" />
                             </div>
                             <div class="form-field">
                                 <label for="subject">Тема</label>
-                                <input type="text" id="subject" name="subject" value="{{ service.title }}" />
+                                <input type="text" id="subject" name="subject" value="{{ service.title }}" maxlength="255" />
                             </div>
                         </div>
                         <div class="form-field">
                             <label for="message">Сообщение</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Кратко опишите задачу"></textarea>
+                            <textarea id="message" name="message" rows="4" placeholder="Кратко опишите задачу" maxlength="3500"></textarea>
+                        </div>
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="company_website">Сайт компании</label>
+                            <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off" />
                         </div>
                         <label class="consent-field">
                             <input type="checkbox" name="personal_data_consent" required />

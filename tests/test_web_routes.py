@@ -133,8 +133,17 @@ def test_assets_route_and_static_redirect() -> None:
         assert assets_response.status_code == 200
 
         redirect_response = client.get("/static/main.css", follow_redirects=False)
-        assert redirect_response.status_code == 307
+        assert redirect_response.status_code == 301
         assert redirect_response.headers["location"] == "/assets/main.css"
+
+
+def test_favicon_route() -> None:
+    asyncio.run(init_models())
+    with TestClient(app=app) as client:
+        resp = client.get("/favicon.ico")
+        assert resp.status_code == 200
+        assert "png" in resp.headers["content-type"]
+        assert len(resp.content) > 0
 
 
 def test_template_assets_exist() -> None:
@@ -219,3 +228,57 @@ def test_feedback_requires_personal_data_consent() -> None:
         resp = client.post("/feedback", json=payload)
         assert resp.status_code == 400
         assert resp.json()["status"] == "error"
+
+
+def test_feedback_rejects_invalid_email() -> None:
+    asyncio.run(init_models())
+    payload = {
+        "name": "Ivan",
+        "telephone": "+79991234567",
+        "email": "not-an-email",
+        "subject": "test",
+        "message": "message",
+        "personal_data_consent": "on",
+    }
+    with TestClient(app=app) as client:
+        resp = client.post("/feedback", json=payload)
+        assert resp.status_code == 400
+        assert resp.json()["message"] == "Некорректный email"
+
+
+def test_feedback_rejects_oversized_message() -> None:
+    asyncio.run(init_models())
+    payload = {
+        "name": "Ivan",
+        "telephone": "+79991234567",
+        "email": "ivan@example.com",
+        "subject": "test",
+        "message": "x" * 5000,
+        "personal_data_consent": "on",
+    }
+    with TestClient(app=app) as client:
+        resp = client.post("/feedback", json=payload)
+        assert resp.status_code == 400
+
+
+def test_feedback_honeypot_silent_success() -> None:
+    from app.container import order_service
+
+    asyncio.run(init_models())
+    orders_before = len(asyncio.run(order_service.list_orders()))
+    payload = {
+        "name": "Spam Bot",
+        "telephone": "+79991234567",
+        "email": "spam@example.com",
+        "subject": "spam",
+        "message": "spam",
+        "personal_data_consent": "on",
+        "company_website": "https://spam.example",
+    }
+    with TestClient(app=app) as client:
+        resp = client.post("/feedback", json=payload)
+        assert resp.status_code == 200
+        assert resp.json()["status"] == "success"
+
+    orders_after = len(asyncio.run(order_service.list_orders()))
+    assert orders_after == orders_before

@@ -14,6 +14,7 @@ from app.db.models import Order
 from app.db.repositories import OrderRepository
 from app.db.session import SessionFactory, close_engine, init_models
 from app.services.users import ROLE_PRIORITY, UserService
+from app.timeutil import utcnow
 
 ORDERS_FILE = BASE_DIR / "orders.json"
 KEYS_FILE = BASE_DIR / "keys.json"
@@ -42,7 +43,7 @@ def _parse_datetime(value: object) -> datetime:
             return datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
         except ValueError:
             pass
-    return datetime.now()
+    return utcnow()
 
 
 async def migrate_orders(orders_data: object) -> int:
@@ -70,7 +71,7 @@ async def migrate_orders(orders_data: object) -> int:
                 status=str(row.get("status") or "new"),
                 source="legacy_json",
                 created_at=_parse_datetime(row.get("created_at")),
-                updated_at=datetime.now(),
+                updated_at=utcnow(),
             )
             await repo.create(order)
             imported += 1

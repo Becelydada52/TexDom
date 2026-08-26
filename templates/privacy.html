@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo/miniintexdom.png') }}">
     <title>Политика обработки персональных данных — ИнТехДом</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260610">
     <script src="{{ url_for('static', filename='main.js') }}?v=20260610" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body class="privacy-page">
     <header class="site-header">
@@ -33,7 +34,6 @@
             <ul id="primary-menu" class="nav-links">
                 <li><a href="{{ url_for('main') }}">Главная</a></li>
                 <li><a href="{{ url_for('main') }}#services">Услуги</a></li>
-                <li><a href="{{ url_for('obrsvaz') }}">Оставить заявку</a></li>
                 <li><a class="phone-link" href="tel:+79080381299" aria-label="Позвонить по телефону +7 908 038-12-99">+7 (908) 038-12-99</a></li>
                 <li><a class="nav-action" href="{{ url_for('obrsvaz') }}">Оставить заявку</a></li>
             </ul>

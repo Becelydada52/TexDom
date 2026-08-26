@@ -4,14 +4,17 @@ from aiogram import F, Router
 from aiogram.exceptions import TelegramBadRequest
 from aiogram.types import CallbackQuery
 
-from app.bot.deps import ALLOWED_ROLES, ensure_callback_role
+from app.bot.deps import ensure_callback_role
 from app.bot.keyboards.orders import order_details_kb, orders_list_kb
 from app.db.models import Order
 from app.services.orders import OrderService
 from app.services.users import UserService
+from app.timeutil import format_moscow
 
 
 router = Router(name="orders")
+
+ORDERS_VIEW_ROLES = ("admin", "developer")
 
 
 def _format_order(order: Order) -> str:
@@ -22,7 +25,7 @@ def _format_order(order: Order) -> str:
         f"📧 Email: {order.email}\n"
         f"📌 Тема: {order.subject}\n"
         f"✉️ Сообщение:\n{order.message}\n\n"
-        f"⏱ Создано: {order.created_at:%Y-%m-%d %H:%M:%S}\n"
+        f"⏱ Создано: {format_moscow(order.created_at)}\n"
         f"📦 Статус: {order.status}"
     )
 
@@ -40,7 +43,7 @@ async def _render_orders_list(call: CallbackQuery, order_service: OrderService) 
 
 @router.callback_query(F.data == "view_orders")
 async def cb_view_orders(call: CallbackQuery, user_service: UserService, order_service: OrderService) -> None:
-    role = await ensure_callback_role(call, user_service, ALLOWED_ROLES)
+    role = await ensure_callback_role(call, user_service, ORDERS_VIEW_ROLES)
     if role is None:
         return
     await call.answer()
@@ -49,7 +52,7 @@ async def cb_view_orders(call: CallbackQuery, user_service: UserService, order_s
 
 @router.callback_query(F.data.startswith("order:"))
 async def cb_order_details(call: CallbackQuery, user_service: UserService, order_service: OrderService) -> None:
-    role = await ensure_callback_role(call, user_service, ALLOWED_ROLES)
+    role = await ensure_callback_role(call, user_service, ORDERS_VIEW_ROLES)
     if role is None or call.message is None:
         return
 
@@ -65,7 +68,7 @@ async def cb_order_details(call: CallbackQuery, user_service: UserService, order
 
 @router.callback_query(F.data.startswith("order_status:"))
 async def cb_order_status(call: CallbackQuery, user_service: UserService, order_service: OrderService) -> None:
-    role = await ensure_callback_role(call, user_service, ALLOWED_ROLES)
+    role = await ensure_callback_role(call, user_service, ORDERS_VIEW_ROLES)
     if role is None or call.message is None:
         return
 

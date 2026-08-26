@@ -49,6 +49,7 @@ python -m pip install -r requirements.txt
 | `BOT_WEBHOOK_PATH` | Нет | `/webhook` | Путь webhook |
 | `BOT_WEBHOOK_HOST` | Нет | `0.0.0.0` | Хост для локального webhook-сервера |
 | `BOT_WEBHOOK_PORT` | Нет | `8081` | Порт для локального webhook-сервера |
+| `BOT_WEBHOOK_SECRET` | Нет для polling | пусто | Секрет webhook (`secret_token`), отсекает поддельные апдейты |
 
 Для локальной разработки достаточно:
 - указать `BOT_TOKEN`;
@@ -112,8 +113,9 @@ python -m pip install -r requirements.txt
 Минимальная схема:
 1. Установите `BOT_MODE=webhook`.
 2. Заполните `BOT_WEBHOOK_URL`.
-3. При необходимости задайте `BOT_WEBHOOK_PATH`, `BOT_WEBHOOK_HOST`, `BOT_WEBHOOK_PORT`.
-4. Перезапустите бот.
+3. Задайте `BOT_WEBHOOK_SECRET` (случайная строка) — Telegram будет подписывать запросы.
+4. При необходимости задайте `BOT_WEBHOOK_PATH`, `BOT_WEBHOOK_HOST`, `BOT_WEBHOOK_PORT`.
+5. Перезапустите бот.
 
 Если `BOT_MODE=webhook`, но `BOT_WEBHOOK_URL` пустой, бот автоматически переключится в `polling`.
 
@@ -135,16 +137,19 @@ python -m pip install -r requirements.txt
 ## Основные маршруты сайта
 
 - `/`
-- `/Price`
-- `/price`
-- `/price1`
-- `/price2`
-- `/price3`
 - `/obrsvaz`
+- `/privacy`
 - `/services/{slug}`
 - `/feedback`
+- `/robots.txt`, `/sitemap.xml`, `/favicon.ico`
 - `/assets/{filename:path}`
-- `/static/{filename:path}` — legacy-redirect на `/assets/...`
+- `/static/{filename:path}` — legacy-redirect (301) на `/assets/...`
+
+## Защита формы обратной связи
+
+- rate-limit: не более 5 заявок с одного IP за 15 минут (429 при превышении);
+- honeypot-поле `company_website` (скрытое) — заполненные ботом заявки молча отбрасываются;
+- серверная валидация телефона, email и длины полей.
 
 ## Структура данных
 

@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo/miniintexdom.png') }}">
     <title>Обратная связь — ИнТехДом</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=20260610">
     <script src="{{ url_for('static', filename='main.js') }}?v=20260610" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body>
     <header class="site-header">
@@ -48,26 +49,30 @@
             <div class="form-row">
                 <div class="form-field">
                     <label for="name">Имя</label>
-                    <input type="text" id="name" name="name" placeholder="Ваше имя" required />
+                    <input type="text" id="name" name="name" placeholder="Ваше имя" required maxlength="200" />
                 </div>
                 <div class="form-field">
                     <label for="telephone">Телефон</label>
-                    <input type="tel" id="telephone" name="telephone" placeholder="+7XXXXXXXXXX" required />
+                    <input type="tel" id="telephone" name="telephone" placeholder="+7XXXXXXXXXX" required maxlength="20" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="mail@example.com" />
+                    <input type="email" id="email" name="email" placeholder="mail@example.com" maxlength="254" />
                 </div>
                 <div class="form-field">
                     <label for="subject">Тема</label>
-                    <input type="text" id="subject" name="subject" placeholder="Коротко о задаче" />
+                    <input type="text" id="subject" name="subject" placeholder="Коротко о задаче" maxlength="255" />
                 </div>
             </div>
             <div class="form-field">
                 <label for="message">Сообщение</label>
-                <textarea id="message" name="message" rows="4" placeholder="Опишите задачу"></textarea>
+                <textarea id="message" name="message" rows="4" placeholder="Опишите задачу" maxlength="3500"></textarea>
+            </div>
+            <div class="hp-field" aria-hidden="true">
+                <label for="company_website">Сайт компании</label>
+                <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off" />
             </div>
             <label class="consent-field">
                 <input type="checkbox" name="personal_data_consent" required />

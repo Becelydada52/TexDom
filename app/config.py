@@ -21,6 +21,7 @@ class Settings:
     bot_webhook_path: str
     bot_webhook_host: str
     bot_webhook_port: int
+    bot_webhook_secret: str
     templates_dir: Path
     static_dir: Path
     bot_log_path: Path
@@ -38,6 +39,7 @@ def get_settings() -> Settings:
     bot_webhook_path = os.getenv("BOT_WEBHOOK_PATH", "/webhook").strip() or "/webhook"
     bot_webhook_host = os.getenv("BOT_WEBHOOK_HOST", "0.0.0.0").strip()
     bot_webhook_port = int(os.getenv("BOT_WEBHOOK_PORT", "8081"))
+    bot_webhook_secret = os.getenv("BOT_WEBHOOK_SECRET", "").strip()
 
     if bot_mode not in {"polling", "webhook"}:
         bot_mode = "polling"
@@ -50,6 +52,7 @@ def get_settings() -> Settings:
         bot_webhook_path=bot_webhook_path,
         bot_webhook_host=bot_webhook_host,
         bot_webhook_port=bot_webhook_port,
+        bot_webhook_secret=bot_webhook_secret,
         templates_dir=BASE_DIR / "templates",
         static_dir=BASE_DIR / "static",
         bot_log_path=BASE_DIR / "bot.log",
